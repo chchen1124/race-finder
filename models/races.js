@@ -6,14 +6,10 @@
 // =============================================================
 const Sequelize = require("sequelize");
 const sequelize = require("../config/connection.js");
+const Locations = require("./location.js");
 
 // Creates a "Race" model that matches up with DB
 const Race = sequelize.define("races", {
-	id: {
-		type: Sequelize.INTEGER,
-		autoIncrement: true,
-		primaryKey: true
-	},
 	name: {
 		type: Sequelize.STRING
 	},
@@ -21,7 +17,12 @@ const Race = sequelize.define("races", {
 		type: Sequelize.STRING
 	},
 	zip_code: {
-		type: Sequelize.INTEGER
+		type: Sequelize.STRING(5),
+		// zip code is the foreign key with a one to one relationship with the location model
+		references: {
+			model: Locations,
+			key: "zip_code"
+		}
 	},
 	date:{
 		type:Sequelize.DATEONLY
@@ -29,8 +30,6 @@ const Race = sequelize.define("races", {
 	avg_temp:{
 		type:Sequelize.DOUBLE
 	}
-}, {
-	timestamps: false
 });
 Race.sync();
 
