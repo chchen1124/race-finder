@@ -1,31 +1,29 @@
+// *********************************************************************************
+// locations.js - Container for location model.
+// *********************************************************************************
+
 // Dependencies
 // =============================================================
+let Sequelize = require("sequelize");
+let sequelize = require("../config/connection.js");
 
-var Sequelize = require("sequelize");
-var sequelize = require("../config/connection.js");
-
-// Creates a "The_Location" model that matches up with DB
-var The_Location = sequelize.define("locations", {
-	id: {
-		type: Sequelize.INTEGER,
-		autoIncrement:true,
-		primaryKey:true
-	},
+// Define location model
+let location = sequelize.define("locations", {
 	zip_code: {
-		type: Sequelize.INTEGER
+		// uses 5 digit zip codes. use string for zips that begin with 0.
+		type: Sequelize.STRING(5)
 	},
 	city: {
-		type: Sequelize.STRING
+		// limit the city name length to 25 characters
+		// the longest city name in the us is 22 characters (Truth or Consequences, NM)
+		type: Sequelize.STRING(25)
 	},
 	state: {
-		type: Sequelize.STRING
+		// use 2 character postal abreviations for states
+		type: Sequelize.STRING(2)
 	}
 }, {
 	timestamps: false
 });
-
-// Syncs with DB
-The_Location.sync();
-
-// Makes the The_Location Model available for other files (will also create a table)
-module.exports = The_Location;
+location.sync();
+module.exports = location;
