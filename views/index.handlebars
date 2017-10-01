@@ -1,0 +1,77 @@
+<div class="container" id="login-container">
+    <div class="row">
+        <div class="col s12">
+            <span id="user"></span><span id="login">Login</span>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="jumbotron">
+    <div class="row">
+        <div class="col s12">
+            <img id="running-man-img" src="/assets/images/running-icon.png">
+            <h1 id="race-header">Race Finder</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container" id="input-container">
+    <div class="row">
+        <div class="col s12">
+            <h3 id="input-header">Random Match</h3>
+            <p>{{race.name}}</p>
+            <p>{{race.city}}, {{race.state}}</p>
+            <p>{{race.date}}</p>
+            <p>{{race.temp}}&deg;</p>
+            {{!-- <div class="input-field" id="state-input">
+                <i class="material-icons prefix">directions_run</i>
+                <input id="state" type="text">
+                <label id="signup-password-label" for="state" class="active">State</label>
+            </div> --}}
+        </div>
+    </div>
+</div>
+
+<br>
+
+<!-- results modal -->
+<div id="results-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content text-center">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title"><strong>Best Match</strong></h2>
+            </div>
+            <div class="modal-body">
+                <h2 id="match-name">{{targetRace.name}}</h2>
+                <img id="match-img" width="300" src="" alt="">
+                <h2 id="match-url"></h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- customer login modal -->
+<div id="login-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+            <div class="modal-header">
+                <h2 class="modal-title"><strong>Login</strong></h2>
+            </div>
+            <div class="modal-body">
+                <h3>Customer Name</h3>
+                <form action="/api/customer" method="POST" class="button-size" autocomplete="off">
+                    <input id="customer-text" type="text" name="customer"></textarea>
+                    <button id="login-button" class="btn btn-primary" type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
