@@ -37,7 +37,6 @@ module.exports = function(app) {
 			date: "2018-04-01",
 			temp: "18.21"
 		};
-		console.log("Race:", race);
-		res.render("index", race);
+		res.render("index", { race: race });
 	});
 };
