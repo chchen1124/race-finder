@@ -4,6 +4,7 @@
 const Express = require("express");
 const BodyParser = require("body-parser");
 const Exphbs = require("express-handlebars");
+const DB = require("./models");
 // const Routes = require("./controllers/controller.js");
 
 let app = Express();
@@ -23,6 +24,9 @@ app.set("view engine", "handlebars");
 // connecting router
 // app.use("/", Routes);
 
-app.listen(PORT, () => {
-	console.log("Server listening on: http://localhost:%s", PORT);
-});
+// sync the database and start server listening
+DB.sequelize.sync().then(() => {
+	app.listen(PORT, () => {
+		console.log("Server listening on: http://localhost:%s", PORT);
+	});
+})
