@@ -24,7 +24,7 @@ const Race = sequelize.define("races", {
 			key: "zip_code"
 		}
 	},
-	date:{
+	race_date:{
 		type:Sequelize.DATEONLY
 	},
 	avg_temp:{
