@@ -1,71 +1,53 @@
 // *********************************************************************************
-// api-routes-races.js - this file offers a set of routes for displaying and saving data to the db
+// api-routes-races.js - 
+//
+// this file offers a set of routes for displaying and saving data to the db
 // *********************************************************************************
 
 // Dependencies
 // =============================================================
-var Race = require("../models/races.js");
+const DB = require("../models");
+
+// Route Handlers
+// =============================================================
+
+// Returns an array of races based on location parameter
+// Location is an object that must contain a zipCode key or
+// city and state keys
+function getRacesByLocation(location) {
+
+}
+
 // Routes
 // =============================================================
 module.exports = function(app) {
-  // Get all races
-  app.get("/api/all", function(req, res) {
-    Race.findAll({}).then(function(results) {
-      res.json(results);
-    });
-  });
+	// Get all races
+	app.get("/api/races/all", function(req, res) {
+		DB.Race.findAll({}).then(function(results) {
+			res.json(results);
+		});
+	});
 
-  // Get a specific race by id
-  app.get("/api/id/:id", function(req, res) {
-    if (req.params.id) {
-      Race.findAll({
-        where: {
-          id: req.params.id
-        }
-      }).then(function(results) {
-        res.json(results);
-      });
-    }
-  });
+	// Displays landing page with a race from the database
+	app.get("/", function(req, res) {
 
-  // Add a race
-  app.post("/api/new", function(req, res) {
-    console.log("Race Info:");
-    console.log(req.body);
-    Race.create({
-      name: req.body.name,
-      url: req.body.url,
-      zip_code: req.body.zip_code,
-      date:req.body.date,
-      avg_temp:req.body.avg_temp
-    });
-  });
+		// get the first race
+		DB.Race.findOne({
+			include: [DB.Location]
+		}).then(function(result) {
 
-  // Delete a race
-  app.post("/api/delete", function(req, res) {
-    console.log("Race Info:");
-    console.log(req.body);
-    Race.destroy({
-      where: {
-        id: req.body.id
-      }
-    });
-  });
-
-  // Update a race
-  app.post("/api/update", function(req, res) {
-    Race.update({
-      name:req.body.name,
-      url:req.body.url,
-      zip_code: req.body.zip_code,
-      date:req.body.date,
-      avg_temp: req.body.avg_temp
-    }, {
-      where: {
-        id: req.body.id
-      }
-    }).then(function(results){
-      res.json(results);
-    });
-  });
+			console.log("Results returned:", result);
+			// let race = {
+			// 	name: result,
+			// 	city: result,
+			// 	state: result,
+			// 	date: result
+			// };
+			res.json(result);
+			// res.render("index", );
+		}).catch(function(reason) {
+			console.log("Error Occurred:", reason);
+			res.json(reason);
+		});
+	});
 };
