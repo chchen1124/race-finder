@@ -30,13 +30,20 @@ module.exports = function(app) {
 
 	// Displays landing page with a race from the database
 	app.get("/", function(req, res) {
-		let race = {
-			name: "Test Race",
-			city: "Truth and Consequences",
-			state: "NM",
-			date: "2018-04-01",
-			temp: "18.21"
-		};
-		res.render("index", { race: race });
+
+		// get race and location info for the first race in the db
+		DB.Race.findAll({ include: [DB.Location] }).then(function(results) {
+			let firstRace = results[0];
+			let race = {
+				name: firstRace.name,
+				date: firstRace.race_date,
+				temp: firstRace.avg_temp,
+				url: firstRace.url,
+				city: firstRace.Location.city,
+				state: firstRace.Location.state,
+				zip_code: firstRace.Location.zip_code
+			};
+			res.render("index", { race: race });
+		}).catch(console.log);
 	});
 };
