@@ -1,0 +1,2 @@
+DROP DATABASE IF EXISTS race_finder;
+CREATE DATABASE race_finder;

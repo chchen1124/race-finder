@@ -1,28 +1,32 @@
-var express = require("express");
-var exphbs = require("express-handlebars");
-var bodyParser = require("body-parser");
-var methodOverride = require("method-override");
-var path = require("path");
+// ==============================================================
+// DEPENDENCIES
+// ==============================================================
+const Express = require("express");
+const BodyParser = require("body-parser");
+const Exphbs = require("express-handlebars");
+const DB = require("./models");
+// const Routes = require("./controllers/controller.js");
 
-var app = express();
-var PORT = process.env.PORT || 3001;
+let app = Express();
+let PORT = process.env.PORT || 8080;
 
-var db = require("./models");
+// Serve static content for the app from the "public" directory in 
+// the application directory.
+app.use(Express.static("public"));
 
-app.use(methodOverride("_method"));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.text());
-app.use(bodyParser.json({ type: "application/vnd.api+json" }));
+// Parse application/x-www-form-urlencoded
+app.use(BodyParser.urlencoded({ extended: false }));
 
-app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+// Setup Handlebars
+app.engine("handlebars", Exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-app.use(express.static("public"));
+// connecting router
+// app.use("/", Routes);
 
-require("./controllers/raceController.js")(app);
-
-db.sequelize.sync().then(function() {
-	app.listen(PORT, function() {
-		console.log("App listening on PORT " + PORT);
+// sync the database and start server listening
+DB.sequelize.sync().then(() => {
+	app.listen(PORT, () => {
+		console.log("Server listening on: http://localhost:%s", PORT);
 	});
 });
