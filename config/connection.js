@@ -3,10 +3,14 @@
 // *********************************************************************************
 
 // Dependencies
-var Sequelize = require("sequelize");
+let Sequelize = require("sequelize");
+
+// DB Configuration Constants
+const DB_USERNAME = "";
+const DB_PASSWORD = "";
 
 // Creates mySQL connection using Sequelize
-var sequelize = new Sequelize("race_finder", "user", "password", {
+let sequelize = new Sequelize("race_finder", DB_USERNAME, DB_PASSWORD, {
   host: "localhost",
   dialect: "mysql",
   pool: {
