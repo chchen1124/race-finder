@@ -19,8 +19,9 @@ module.exports = function(sequelize, DataTypes) {
 			type: DataTypes.STRING(25),
 			allowNull: false
 		},
+
+		// 2 character postal abrevation for the state
 		state: {
-			// use 2 character postal abreviations for states
 			type: DataTypes.STRING(2),
 			allowNull: false
 		}
