@@ -4,11 +4,11 @@
 
 // Dependencies
 // =============================================================
-let Sequelize = require("sequelize");
-let sequelize = require("../config/connection.js");
+const Sequelize = require("sequelize");
+const sequelize = require("../config/connection.js");
 
 // Define location model
-let location = sequelize.define("locations", {
+const Location = sequelize.define("locations", {
 	zip_code: {
 		// uses 5 digit zip codes. use string for zips that begin with 0.
 		type: Sequelize.STRING(5)
@@ -26,4 +26,6 @@ let location = sequelize.define("locations", {
 	timestamps: false
 });
 location.sync();
-module.exports = location;
+
+// export the Location model
+module.exports = Location;
