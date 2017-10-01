@@ -6,7 +6,7 @@
 // =============================================================
 const Sequelize = require("sequelize");
 const sequelize = require("../config/connection.js");
-const Locations = require("./location.js");
+const Locations = require("./locations.js");
 
 // Creates a "Race" model that matches up with DB
 const Race = sequelize.define("races", {
@@ -31,6 +31,7 @@ const Race = sequelize.define("races", {
 		type:Sequelize.DOUBLE
 	}
 });
+
 Race.sync();
 
 // Makes the Race Model available for other files (will also create a table)
