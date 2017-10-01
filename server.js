@@ -4,7 +4,7 @@
 const Express = require("express");
 const BodyParser = require("body-parser");
 const Exphbs = require("express-handlebars");
-const Routes = require("./controllers/controller.js");
+// const Routes = require("./controllers/controller.js");
 
 let app = Express();
 let PORT = process.env.PORT || 8080;
@@ -21,7 +21,7 @@ app.engine("handlebars", Exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // connecting router
-app.use("/", Routes);
+// app.use("/", Routes);
 
 app.listen(PORT, () => {
 	console.log("Server listening on: http://localhost:%s", PORT);
