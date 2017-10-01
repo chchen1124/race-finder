@@ -29,7 +29,7 @@ const Locations = sequelize.define("locations", {
 		allowNull: false
 	}
 });
-location.sync();
+Locations.sync();
 
 // export the Location model
 module.exports = Locations;
