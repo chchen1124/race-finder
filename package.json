@@ -7,13 +7,27 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/race-finder/race-finder.git"
+  },
   "author": "",
   "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/race-finder/race-finder/issues"
+  },
+  "homepage": "https://github.com/race-finder/race-finder#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "express": "^4.16.0",
+    "express": "^4.16.1",
     "express-handlebars": "^3.0.0",
+    "method-override": "^2.3.10",
+    "moment": "^2.18.1",
+    "moment-js": "^1.1.15",
     "mysql2": "^1.4.2",
-    "sequelize": "^4.13.1"
+    "path": "^0.12.7",
+    "request": "^2.83.0",
+    "sequelize": "^4.11.5",
+    "strava-v3": "^1.14.0"
   }
 }

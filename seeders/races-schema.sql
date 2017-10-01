@@ -1,0 +1,13 @@
+CREATE DATABASE races_db;
+
+USE races_db;
+
+CREATE TABLE races (
+	id INTEGER(10) PRIMARY KEY AUTO_INCREMENT,
+    race_name VARCHAR(1000),
+    date VARCHAR(10) NOT NULL,
+    city VARCHAR(255) NOT NULL,
+    state VARCHAR(45) NOT NULL
+);
+
+SELECT * FROM races;
