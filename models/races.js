@@ -5,10 +5,10 @@
 // Dependencies
 // =============================================================
 const Sequelize = require("sequelize");
-let sequelize = require("../config/connection.js");
+const sequelize = require("../config/connection.js");
 
 // Creates a "Race" model that matches up with DB
-let Race = sequelize.define("races", {
+const Race = sequelize.define("races", {
 	id: {
 		type: Sequelize.INTEGER,
 		autoIncrement: true,
