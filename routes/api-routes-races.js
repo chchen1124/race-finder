@@ -30,24 +30,14 @@ module.exports = function(app) {
 
 	// Displays landing page with a race from the database
 	app.get("/", function(req, res) {
-
-		// get the first race
-		DB.Race.findOne({
-			include: [DB.Location]
-		}).then(function(result) {
-
-			console.log("Results returned:", result);
-			// let race = {
-			// 	name: result,
-			// 	city: result,
-			// 	state: result,
-			// 	date: result
-			// };
-			res.json(result);
-			// res.render("index", );
-		}).catch(function(reason) {
-			console.log("Error Occurred:", reason);
-			res.json(reason);
-		});
+		let race = {
+			name: "Test Race",
+			city: "Truth and Consequences",
+			state: "NM",
+			date: "2018-04-01",
+			temp: "18.21"
+		};
+		console.log("Race:", race);
+		res.render("index", race);
 	});
 };
