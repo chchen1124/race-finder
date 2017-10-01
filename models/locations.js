@@ -3,19 +3,24 @@
 // *********************************************************************************
 
 module.exports = function(sequelize, DataTypes) {
+	
 	// Define location model
-	const Location = sequelize.define("locations", {
-		// zip code is the primary key
+	const Location = sequelize.define("Location", {
+
+		// zip code is the primary key. string containing a 5 digit zip code.
+		// use a string because zip codes are not used on math operations and
+		// string maintains leading zeroes.
 		zip_code: {
-			// uses 5 digit zip codes. use string for zips that begin with 0.
 			type: DataTypes.STRING(5),
 			allowNull: false,
 			primaryKey: true,
 			unique: true
 		},
+
+
+		// limit the city name length to 25 characters
+		// the longest city name in the us is 22 characters (Truth or Consequences, NM)
 		city: {
-			// limit the city name length to 25 characters
-			// the longest city name in the us is 22 characters (Truth or Consequences, NM)
 			type: DataTypes.STRING(25),
 			allowNull: false
 		},
@@ -26,5 +31,15 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false
 		}
 	});
+
+	Location.associate = function(models) {
+
+		// When a location is deleted all races associated with the
+		// location are deleted
+		Location.hasMany(models.Race, {
+		  onDelete: "cascade"
+		});
+	  };
+
 	return Location;
 }
