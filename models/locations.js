@@ -12,8 +12,6 @@ module.exports = function(sequelize, DataTypes) {
 		// string maintains leading zeroes.
 		zip_code: {
 			type: DataTypes.STRING(5),
-			allowNull: false,
-			primaryKey: true,
 			unique: true
 		},
 
