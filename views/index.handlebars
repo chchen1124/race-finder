@@ -24,11 +24,18 @@
 <div class="container" id="input-container">
     <div class="row">
         <div class="col s12">
-            <h3 id="input-header">Find Your Race</h3>
+            <h3 id="state-header">Location</h3>
             <div class="input-field">
                 <select id="state">
                 <option value="" disabled selected>Select a State</option>
                 <option value="CA">CA</option>
+                </select>
+            </div>
+            <h3 id="distance-header">Distance</h3>
+            <div class="input-field">
+                <select id="distance">
+                <option value="" disabled selected>Select a Race Distance</option>
+                <option value="Marathon">Marathon</option>
                 </select>
             </div>
             <div id="slider-date-container">
@@ -77,11 +84,22 @@
     </div>
 </div>
 
-<!-- validation Modal -->
-<div id="validate-modal" class="modal">
+<!-- state validation modal -->
+<div id="validate-modal-state" class="modal">
     <div class="modal-content">
         <h3 id="match-header">Error</h3>
         <p>Please select a state</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+    </div>
+</div>
+
+<!-- distance validation modal -->
+<div id="validate-modal-distance" class="modal">
+    <div class="modal-content">
+        <h3 id="match-header">Error</h3>
+        <p>Please select a race distance</p>
     </div>
     <div class="modal-footer">
         <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">OK</a>
