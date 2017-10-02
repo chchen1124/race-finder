@@ -8,6 +8,8 @@ $(document).ready(function () {
     // initialize Materialize select
     $("select").material_select();
     $("#results-modal").modal();
+    $("#validate-modal").modal();
+    $(".carousel").carousel();
 
     // build date slider (from noUISlider)
     noUiSlider.create(dateSlider, {
@@ -40,25 +42,32 @@ $(document).ready(function () {
 
     $("#submit-btn").click(function() {
 
-        let raceQuery = {};
+        if($("#state").val()) {
 
-        raceQuery.state = $("#state").val();
-        raceQuery.startDate = $("#event-start").text();
-        raceQuery.endDate = $("#event-end").text();
-
-        console.log(raceQuery);
-
-        $.post("/", raceQuery, function(data) {
-
-            $("#match-name").text(data.name);
-            $("#match-city").text(data.city);
-            $("#match-state").text(data.state);
-            $("#match-date").text(data.date);
-            // $("#match-temp").text(data.temp);
+            let raceQuery = {};
             
-            $("#results-modal").modal("open");
-        });
+            raceQuery.state = $("#state").val();
+            raceQuery.startDate = $("#event-start").text();
+            raceQuery.endDate = $("#event-end").text();
+    
+            console.log(raceQuery);
+    
+            $.post("/", raceQuery, function(data) {
+    
+                $("#match-name").text(data.name);
+                $("#match-city").text(data.city);
+                $("#match-state").text(data.state);
+                $("#match-date").text(data.date);
+                $("#match-temp").text(data.temp);
+                
+                $("#results-modal").modal("open");
+            });
+        }
 
+        else {
+
+            $("#validate-modal").modal("open");
+        }
     });
 });
 
@@ -68,6 +77,5 @@ function timestamp(str) {
 
 // Create a string representation of the date.
 function formatDate(date) {
-    console.log(date);
-    return moment(date).format("M-DD-YYYY");
+    return moment(date).format("M/D/YYYY");
 }
