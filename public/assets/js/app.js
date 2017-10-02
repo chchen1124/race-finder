@@ -8,7 +8,8 @@ $(document).ready(function () {
     // initialize Materialize select
     $("select").material_select();
     $("#results-modal").modal();
-    $("#validate-modal").modal();
+    $("#validate-modal-state").modal();
+    $("#validate-modal-distance").modal();
     $(".carousel").carousel();
 
     // build date slider (from noUISlider)
@@ -42,7 +43,7 @@ $(document).ready(function () {
 
     $("#submit-btn").click(function() {
 
-        if($("#state").val()) {
+        if($("#state").val() && $("#distance").val()) {
 
             let raceQuery = {};
             
@@ -66,7 +67,15 @@ $(document).ready(function () {
 
         else {
 
-            $("#validate-modal").modal("open");
+            if(!$("#state").val()) {
+
+                $("#validate-modal-state").modal("open");
+            }
+
+            else {
+
+                $("#validate-modal-distance").modal("open");
+            }
         }
     });
 });
