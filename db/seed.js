@@ -1,18 +1,21 @@
 // *********************************************************************************
 // seeds.js
 //
-// This file contains operation to import data from csv file into the race_finder.db.
+// Run this script to seed the race_finder db.
 //
-// To seed the race_finder db after intiializing the schema, run the following on the
-// command line: "race-finder/db$ node seeds.js"
+// To seed the race_finder db after intiializing the schema, run the following: 
+// "...race-finder/db$ node seeds.js".
 // *********************************************************************************
 
 const FS = require("fs");
 const DB = require("../models");
 
-// seeds file name (relative path is assumed)
+// fully qualified file name for the seeds csv.
 const SEEDS_FILE = __dirname + "/race_finder_seeds.csv"
 
+// Returns array of objects for each record in string of csv.
+// csv must contain one record per line (utf8).
+// Example line: "Race Name, Date, City, State, LocationId/n"
 function getObjectFromCSV(csv) {
 	// split on lines to get each record
 	let lines = csv.split("\n");
@@ -31,6 +34,9 @@ function getObjectFromCSV(csv) {
 	});
 }
 
+// Adds a new record to the Location and Race
+// database from a record object returned in the
+// array returned by getObjectFromCSV.
 function addRecord(record) {
 	DB.Location.create({
 		city: record.city,
@@ -44,7 +50,7 @@ function addRecord(record) {
 	})
 }
 
-// sync the database and start server listening
+// sync the database and seed it from SEED_FILE
 DB.sequelize.sync().then(()=>{
 	FS.readFile(SEEDS_FILE, "utf8", (err, data) => {
 		if (err) { throw err; }
