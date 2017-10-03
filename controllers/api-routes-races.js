@@ -11,20 +11,6 @@ const DB = require("../models");
 const Request = require("request");
 const Weather = require("./weather.js");
 
-// Globals
-// =============================================================
-const targetRaces = [];
-
-// Route Handlers
-// =============================================================
-
-// Returns an array of races based on location parameter
-// Location is an object that must contain a zipCode key or
-// city and state keys
-function getRacesByLocation(location) {
-
-}
-
 // Routes
 // =============================================================
 module.exports = function(app) {
