@@ -93,4 +93,33 @@ module.exports = function(app) {
 			);
 		}).catch(console.log);
 	});
+
+	// Check if user exists.  If not, create new user
+	// Returns an object with user info
+    app.post("/api/login", function(req, res) {
+		
+		DB.User.findAll({
+			where: {
+				username: req.body.username
+			}
+		}).then(function(data) {
+
+			// user exists in db
+			if(data.length > 0) {
+				res.json(data[0]);
+			}
+
+			// create new user
+			else {
+				DB.User.create({
+					username: req.body.username,
+					password: "1234"
+				}).then(function(data) {
+
+					console.log(data.dataValues);
+					res.json(data.dataValues);
+				});
+			}
+		});
+	});	
 };
