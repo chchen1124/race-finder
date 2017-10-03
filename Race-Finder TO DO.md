@@ -24,6 +24,6 @@
 * user login view(s) for crud
 
 ## Other items for later
-* add urls to database seeds
+* ~~add urls to database seeds~~
 * add image urls to database seeds
 * user search history feature
