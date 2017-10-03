@@ -15,6 +15,8 @@ const Op = require("sequelize").Op; // query operaters from sequelize
 // Routes
 // =============================================================
 module.exports = function(app) {
+
+
 	// Get all races
 	app.get("/api/races/all", function(req, res) {
 		DB.Race.findAll({}).then(function(results) {
@@ -31,6 +33,8 @@ module.exports = function(app) {
 	app.post("/", function(req, res) {
 
 		console.log(req.body);
+		
+		addSearchToDB(req.body);
 
 		// get dates from request body (must be converted to
 		// date objects to work with the Race model)
@@ -51,8 +55,8 @@ module.exports = function(app) {
 			order: [["name", "ASC"]],
 			where: {
 				race_date: {
-					[Op.gte]: fromDate,
-					[Op.lte]: toDate
+					$gte: fromDate,
+					$lte: toDate
 				}
 			}			
 		}).then(function(data) {
@@ -124,3 +128,15 @@ module.exports = function(app) {
 		});
 	});	
 };
+
+// helper function to add current search to database
+function addSearchToDB(search, res) {
+	
+		console.log(search);
+		DB.Search.create({
+			state: search.state,
+			start_date: search.startDate,
+			end_date: search.endDate,
+			UserId: search.id
+		});
+	}
