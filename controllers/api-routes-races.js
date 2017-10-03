@@ -10,6 +10,7 @@ const Moment = require("moment");
 const DB = require("../models");
 const Request = require("request");
 const Weather = require("./weather.js");
+const Op = require("sequelize").Op; // query operaters from sequelize
 
 // Routes
 // =============================================================
@@ -29,10 +30,22 @@ module.exports = function(app) {
 	// Query database to return a race json
 	app.post("/", function(req, res) {
 
-		// get all races ordered by race name
+		// get dates from request body (must be converted to
+		// date objects to work with the Race model)
+		let fromDate = new Date(req.body.startDate);
+		let toDate = new Date(req.body.endDate);
+
+		// get all races where the race date is in the
+		// range of the requested dates inclusive
 		DB.Race.findAll({
 			include: [ DB.Location ],
-			order: [["name", "ASC"]]
+			order: [["name", "ASC"]],
+			where: {
+				race_date: {
+					[Op.gte]: fromDate,
+					[Op.lte]: toDate
+				}
+			}			
 		}).then(function(data) {
 			let firstRace = data[0];
 			let mDate = Moment(firstRace.race_date, "YYYY-MM-DD");
