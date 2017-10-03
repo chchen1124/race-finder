@@ -47,6 +47,14 @@ module.exports = function(app) {
 				}
 			}			
 		}).then(function(data) {
+			// return an empty object if not matching data
+			// is found
+			if(data.length < 1) {
+				return res.status(404).send("No matching races found.");
+			}
+
+			// get the first race from the returned array
+			// of races
 			let firstRace = data[0];
 			let mDate = Moment(firstRace.race_date, "YYYY-MM-DD");
 			let returnedRace = {
