@@ -11,14 +11,19 @@ module.exports = function (app) {
     });
 
     app.post("/", function (req, res) {
+
+        console.log(req.body);
+
+        addSearchToDB(req.body);
         
         // wrap incoming start and end dates with moment object
         let momentStart = moment(req.body.startDate, "M/D/YYYY");
         let momentEnd = moment(req.body.endDate, "M/D/YYYY");
 
-        console.log(momentStart.format("M/D/YYYY"));
-        console.log(momentEnd.format("M/D/YYYY"));
+        // console.log(momentStart.format("M/D/YYYY"));
+        // console.log(momentEnd.format("M/D/YYYY"));
 
+        // get all races & alphabetize
         db.Race.findAll({
 
             order: [["race_name", "ASC"]]
@@ -48,10 +53,9 @@ module.exports = function (app) {
                 }
             }
 
-            console.log(targetRaces);
-            console.log(targetRaces.length);
-
             let randomRaceIndex = Math.floor(Math.random() * targetRaces.length);
+
+            console.log(targetRaces[randomRaceIndex]);
 
             let apikey = "4c190f89c44f0e65";
             let queryURL = "https://api.wunderground.com/api/" + apikey + "/history_" +
@@ -70,16 +74,41 @@ module.exports = function (app) {
         });
     });
 
-    app.put("/:id", function (req, res) {
+    app.post("/api/login", function(req, res) {
 
-        // db.Burger.update({
-        //     devoured: true
-        // }, {
-        //     where: {
-        //         id: req.params.id
-        //     }
-        // }).then(function (data) {
-        //     res.redirect("/");
-        // });
+        db.User.findAll({
+            where: {
+                username: req.body.username
+            }
+        }).then(function(data) {
+
+            // user exists in db
+            if(data.length > 0) {
+                res.json(data[0]);
+            }
+
+            // create new user
+            else {
+                db.User.create({
+                    username: req.body.username,
+                    password: "1234"
+                }).then(function(data) {
+
+                    console.log(data.dataValues);
+                    res.json(data.dataValues);
+                });
+            }
+        });
     });
 };
+
+function addSearchToDB(search, res) {
+
+    console.log(search);
+    db.Search.create({
+        state: search.state,
+        start_date: search.startDate,
+        end_date: search.endDate,
+        UserId: search.id
+    }).then(function(data) {});
+}

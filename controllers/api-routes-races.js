@@ -15,6 +15,8 @@ const Op = require("sequelize").Op; // query operaters from sequelize
 // Routes
 // =============================================================
 module.exports = function(app) {
+
+
 	// Get all races
 	app.get("/api/races/all", function(req, res) {
 		DB.Race.findAll({}).then(function(results) {
@@ -29,6 +31,10 @@ module.exports = function(app) {
 
 	// Query database to return a race json
 	app.post("/", function(req, res) {
+
+		console.log(req.body);
+		
+		addSearchToDB(req.body);
 
 		// get dates from request body (must be converted to
 		// date objects to work with the Race model)
@@ -49,13 +55,12 @@ module.exports = function(app) {
 			order: [["name", "ASC"]],
 			where: {
 				race_date: {
-					[Op.gte]: fromDate,
-					[Op.lte]: toDate
+					$gte: fromDate,
+					$lte: toDate
 				}
 			}			
 		}).then(function(data) {
-			// return an empty object if not matching data
-			// is found
+			// return an empty object if no matching data is found
 			if(data.length < 1) {
 				return res.status(404).send("No matching races found.");
 			}
@@ -93,4 +98,45 @@ module.exports = function(app) {
 			);
 		}).catch(console.log);
 	});
+
+	// Check if user exists.  If not, create new user
+	// Returns an object with user info
+    app.post("/api/login", function(req, res) {
+		
+		DB.User.findAll({
+			where: {
+				username: req.body.username
+			}
+		}).then(function(data) {
+
+			// user exists in db
+			if(data.length > 0) {
+				res.json(data[0]);
+			}
+
+			// create new user
+			else {
+				DB.User.create({
+					username: req.body.username,
+					password: "1234"
+				}).then(function(data) {
+
+					console.log(data.dataValues);
+					res.json(data.dataValues);
+				});
+			}
+		});
+	});	
 };
+
+// helper function to add current search to database
+function addSearchToDB(search, res) {
+	
+		console.log(search);
+		DB.Search.create({
+			state: search.state,
+			start_date: search.startDate,
+			end_date: search.endDate,
+			UserId: search.id
+		});
+	}

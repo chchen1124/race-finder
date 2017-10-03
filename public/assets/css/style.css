@@ -19,6 +19,21 @@ nav {
   background-color: rgb(255, 255, 255);
   height: 200px;
 }
+
+
+
+/* =====================================
+TO DO: Not sure whether you wanted to keep the your (mike) login feature, so I left the CSS function here.
+
+
+
+#login {
+  cursor: pointer;
+}
+========================================
+*/
+
+
 #race-header {
   font-family: 'Lobster', cursive;
   color: #000000;
@@ -43,8 +58,11 @@ nav {
   height: 250px;
 } */
 
-#state-header {
+#state-header,
+#distance-header,
+#time-header {
     margin-top: 0px;
+    font-size: 28px;
 }
 
 .input-field,
@@ -77,11 +95,12 @@ nav {
     width: 150px;
 }
 
-#submit-btn {
+#race-submit-btn {
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
-#results-modal {
+#results-modal,
+#login-modal {
   text-align: center;
 }
