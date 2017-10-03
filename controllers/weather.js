@@ -50,9 +50,6 @@ function getTemps(city, state, dateString, callback) {
         if(error) { return callback(error); }
 
         // get min, max, and calculated mean from response data
-
-        console.log(JSON.parse(body));
-        
         arrObservations = JSON.parse(body).history.observations;
         temps.min = parseFloat(arrObservations[6].tempi);
         temps.max = parseFloat(arrObservations[10].tempi);
