@@ -3,6 +3,10 @@
     text-align: right;
 }
 
+#login {
+  cursor: pointer;
+}
+
 #race-header {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -26,8 +30,11 @@
   height: 250px;
 }
 
-#state-header {
+#state-header,
+#distance-header,
+#time-header {
     margin-top: 0px;
+    font-size: 28px;
 }
 
 .input-field,
@@ -60,11 +67,12 @@
     width: 150px;
 }
 
-#submit-btn {
+#race-submit-btn {
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
-#results-modal {
+#results-modal,
+#login-modal {
   text-align: center;
 }

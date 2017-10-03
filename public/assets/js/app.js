@@ -3,11 +3,15 @@ const endDate = "9-30-2018";
 
 let dateSlider = document.getElementById("slider-date");
 
+let loggedIn = false;
+let user = "";
+
 $(document).ready(function () {
 
-    // initialize Materialize select
+    // initialize Materialize components
     $("select").material_select();
     $("#results-modal").modal();
+    $("#login-modal").modal();
     $("#validate-modal-state").modal();
     $("#validate-modal-distance").modal();
     $(".carousel").carousel();
@@ -41,43 +45,98 @@ $(document).ready(function () {
         dateValues[handle].innerHTML = formatDate(new Date(+values[handle]));
     });
 
-    $("#submit-btn").click(function() {
+    // race search submit button listener 
+    $("#race-submit-btn").click(function(event) {
 
-        if($("#state").val() && $("#distance").val()) {
+        event.preventDefault();
 
-            let raceQuery = {};
-            
-            raceQuery.state = $("#state").val();
-            raceQuery.startDate = $("#event-start").text();
-            raceQuery.endDate = $("#event-end").text();
-    
-            console.log(raceQuery);
-    
-            $.post("/", raceQuery, function(data) {
-    
-                $("#match-name").text(data.name);
-                $("#match-city").text(data.city);
-                $("#match-state").text(data.state);
-                $("#match-date").text(data.date);
-                $("#match-temp").text(data.temp);
-                
-                $("#results-modal").modal("open");
-            });
-        }
+        if (loggedIn) {
 
-        else {
+            if ($("#state").val() && $("#distance").val()) {
 
-            if(!$("#state").val()) {
+                let raceQuery = {};
 
-                $("#validate-modal-state").modal("open");
+                raceQuery.state = $("#state").val();
+                raceQuery.startDate = $("#event-start").text();
+                raceQuery.endDate = $("#event-end").text();
+                raceQuery.id = user.id;
+                raceQuery.username = user.username;
+
+                console.log(raceQuery);
+
+                $.post("/", raceQuery, function (data) {
+
+                    $("#match-name").text(data.name);
+                    $("#match-city").text(data.city);
+                    $("#match-state").text(data.state);
+                    $("#match-date").text(data.date);
+                    $("#match-temp").text(data.temp);
+
+                    $("#results-modal").modal("open");
+                });
             }
 
             else {
 
-                $("#validate-modal-distance").modal("open");
+                if (!$("#state").val()) {
+
+                    $("#validate-modal-state").modal("open");
+                }
+
+                else {
+
+                    $("#validate-modal-distance").modal("open");
+                }
             }
+                
+        }
+
+        // not logged in
+        else {
+            $("#login-modal").modal("open");
+        }
+
+    });
+
+    $("#login").click(function() {
+
+        if(!loggedIn) {
+            $("#login-modal").modal("open");
+        }
+
+        else {
+            loggedIn = false;
+            $("#user").empty();
+            $("#login").text("Login");
         }
     });
+});
+
+$("#user-submit-btn").click(function() {
+
+    let newUser = {};
+
+    if($("#user-name").val().trim()) {
+
+        newUser.username = $("#user-name").val().trim();
+        $("#user-name").val("");
+        $("#login-modal").modal("close");
+
+        $.post("api/login", newUser, function (data) {
+
+            console.log(data);
+
+            // on success
+            if (data) {
+
+                user = newUser;
+                user.id = data.id;
+                loggedIn = true;
+                $("#user").text(user.username);
+                $("#login").text(" | Logout");
+            }
+        });
+    }
 });
 
 function timestamp(str) {
