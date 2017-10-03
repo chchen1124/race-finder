@@ -69,6 +69,7 @@ module.exports = function(app) {
 				state: firstRace.Location.state,
 				name: firstRace.name,
 				temp: null,
+				url: firstRace.url,
 				date: mDate.format("M/D/YYYY")
 			};
 
