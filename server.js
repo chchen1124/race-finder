@@ -23,7 +23,7 @@ app.engine("handlebars", Exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // connect routes
-require("./routes/api-routes-races")(app);
+require("./controllers/api-routes-races")(app);
 
 // sync the database and start server listening
 DB.sequelize.sync().then(() => {
