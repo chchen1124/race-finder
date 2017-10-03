@@ -1,7 +1,7 @@
 // ************************************************************
 // weather.js
 // 
-// This module exports a single method: getObservedTemps which
+// This module exports a single method: getTemps which
 // gets temperature data from the weatherUnderground API.
 // ************************************************************
 
@@ -13,7 +13,7 @@ const apikey = "4c190f89c44f0e65";
 const wgApiHost = "https://api.wunderground.com/api/";
 
 /* 
-getObservedTemps passe an object for the min and max temp to
+getTemps pass an object for the min and max temp to
 a callback function.
 
 PARAMETERS:
@@ -22,11 +22,9 @@ PARAMETERS:
     city and state are strings
     resolve is a callback which is passed an object for the min 
         and max temp for the given date and city.
-    reject is a callback which run if an error or unsuccessful
-        response is received back. The error is passed an error
-        object.
+    reject is a callback which is run if an error occurs
 */
-function getObservedTemps(city, state, dateString, resolve, reject) {
+function getTemps(city, state, dateString, resolve, reject) {
     let arrGetParams; // array of get api params
     let queryURL; // complete wu api request url    
 
@@ -67,14 +65,13 @@ function getObservedTemps(city, state, dateString, resolve, reject) {
         resolve(temps);
     });
 }
-
-module.exports = { getObservedTemps: getObservedTemps };
+module.exports = { getTemps: getTemps };
 
 // TEST CODE
 // ===================================================================
 // its up to the controller to format the parameters as needed
-getObservedTemps(
-    "Bakersfield", "CA", "20160827",
-    console.log,
-    console.log
-);
+// getTemps(
+//     "Bakersfield", "CA", "20160827",
+//     console.log,
+//     console.log
+// );
