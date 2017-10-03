@@ -21,7 +21,7 @@ module.exports = function(app) {
 		});
 	});
 
-	// Displays landing page with a race from the database
+	// Route displays landing page
 	app.get("/", function(req, res) {
         res.render("index");
 	});
