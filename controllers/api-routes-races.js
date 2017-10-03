@@ -30,6 +30,8 @@ module.exports = function(app) {
 	// Query database to return a race json
 	app.post("/", function(req, res) {
 
+		console.log(req.body);
+
 		// get dates from request body (must be converted to
 		// date objects to work with the Race model)
 		let fromDate = new Date(req.body.startDate);
@@ -54,8 +56,7 @@ module.exports = function(app) {
 				}
 			}			
 		}).then(function(data) {
-			// return an empty object if not matching data
-			// is found
+			// return an empty object if no matching data is found
 			if(data.length < 1) {
 				return res.status(404).send("No matching races found.");
 			}
