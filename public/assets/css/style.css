@@ -1,34 +1,62 @@
+body {
+  height: 1100px;
+  background-image: url("../images/background.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+/* 
 #login-container {
     margin-top: 5px;
     text-align: right;
+} */
+.row {
+    margin-bottom: 10px;
 }
+nav {
+  background-color: rgb(255, 255, 255);
+  height: 200px;
+}
+
+
+
+/* =====================================
+TO DO: Not sure whether you wanted to keep the your (mike) login feature, so I left the CSS function here.
+
+
 
 #login {
   cursor: pointer;
 }
+========================================
+*/
+
 
 #race-header {
-    margin-top: 10px;
-    margin-bottom: 10px;
+  font-family: 'Lobster', cursive;
+  color: #000000;
+  text-align: center;
+  line-height: 20px; 
 }
-
-.row {
-    margin-bottom: 10px;
+.buttons {
+  display: inline;
+  padding-left: 30px;
 }
-
-#jumbotron,
 #input-container {
-    margin-top: 10px;
+    margin-top: 50px;
     margin-bottom: 20px;
     padding-top: 20px;
     text-align: center;
     border-radius: 20px;
     border: 1px solid black;
+    background-color: white;
 }
 
-#carousel {
+/* #carousel {
   height: 250px;
-}
+} */
 
 #state-header,
 #distance-header,
