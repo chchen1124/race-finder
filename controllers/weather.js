@@ -1,8 +1,9 @@
 // ************************************************************
 // weather.js
 // 
-// This module exports a single method: getTemps which
-// gets temperature data from the weatherUnderground API.
+// This module acts as a controller for the wunderground api.
+// A single method is exporte--getTemps--which gets temperature 
+// data from the API.
 // ************************************************************
 
 // Dependencies
@@ -20,11 +21,9 @@ PARAMETERS:
     dateString in the format of "yyyymmdd". (8/27/2016 would 
         be "20160827")
     city and state are strings
-    resolve is a callback which is passed an object for the min 
-        and max temp for the given date and city.
-    reject is a callback which is run if an error occurs
+    callback function is passed two parameters: error and data
 */
-function getTemps(city, state, dateString, resolve, reject) {
+function getTemps(city, state, dateString, callback) {
     let arrGetParams; // array of get api params
     let queryURL; // complete wu api request url    
 
@@ -47,31 +46,17 @@ function getTemps(city, state, dateString, resolve, reject) {
         let temps = {};
         let arrObservations;
         
-        // if reject function argument is defined and an error
-        // occurs, call reject
-        if(error && typeof reject !== "undefined") { reject(); }
-
-        // throw an error if no reject parameter and error occurs
-        else if(error) { throw error; }
+        // run the callback if an error is returned
+        if(error) { return callback(error); }
 
         // get min, max, and calculated mean from response data
         arrObservations = JSON.parse(body).history.observations;
-        console.log(arrObservations[6]);
         temps.min = parseFloat(arrObservations[6].tempi);
         temps.max = parseFloat(arrObservations[10].tempi);
         temps.mean = ((temps.min+temps.max)/2).toFixed(1);
 
         // pass temps to the callback
-        resolve(temps);
+        return callback(void 0, temps);
     });
 }
 module.exports = { getTemps: getTemps };
-
-// TEST CODE
-// ===================================================================
-// its up to the controller to format the parameters as needed
-// getTemps(
-//     "Bakersfield", "CA", "20160827",
-//     console.log,
-//     console.log
-// );
