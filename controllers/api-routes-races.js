@@ -6,7 +6,14 @@
 
 // Dependencies
 // =============================================================
+const Moment = require("moment");
 const DB = require("../models");
+const Request = require("request");
+const Weather = require("../controllers/weather.js");
+
+// Globals
+// =============================================================
+const targetRaces = [];
 
 // Route Handlers
 // =============================================================
@@ -30,20 +37,39 @@ module.exports = function(app) {
 
 	// Displays landing page with a race from the database
 	app.get("/", function(req, res) {
+        res.render("index");
+	});
 
-		// get race and location info for the first race in the db
-		DB.Race.findAll({ include: [DB.Location] }).then(function(results) {
-			let firstRace = results[0];
-			let race = {
-				name: firstRace.name,
-				date: firstRace.race_date,
-				temp: firstRace.avg_temp,
-				url: firstRace.url,
+	// Query database to return a race json
+	app.post("/", function(req, res) {
+
+		// get all races ordered by race name
+		DB.Race.findAll({
+			include: [ DB.Location ],
+			order: [["name", "ASC"]]
+		}).then(function(data) {
+			let firstRace = data[0];
+			let mDate = Moment(firstRace.race_date, "YYYY-MM-DD");
+			let returnedRace = {
 				city: firstRace.Location.city,
 				state: firstRace.Location.state,
-				zip_code: firstRace.Location.zip_code
+				name: firstRace.name,
+				temp: firstRace.avg_temp,
+				date: mDate.format("M/D/YYYY")
 			};
-			res.render("index", { race: race });
+
+			// get the temperature data for the city exactly
+			// on year prior to the date of the race event
+			mDate = mDate.subtract(1, "year");
+			Weather.getTemps(
+				returnedRace.city,
+				returnedRace.state,
+				mDate.format("YYYYMMDD"),
+				function(error, temps) {
+					returnedRace.temp = temps.mean;
+					res.json(returnedRace);
+				}
+			);
 		}).catch(console.log);
 	});
 };
