@@ -1,7 +1,7 @@
 <div class="container" id="login-container">
     <div class="row">
         <div class="col s12">
-            <span id="user"></span><span id="login">Login</span>
+            <i class="fa fa-user-circle-o" aria-hidden="true"></i> <span id="user"></span><span id="login">Login</span>
         </div>
     </div>
 </div>
@@ -24,14 +24,14 @@
 <div class="container" id="input-container">
     <div class="row">
         <div class="col s12">
-            <h3 id="state-header">Location</h3>
+            <h4 id="state-header">Location</h4>
             <div class="input-field">
                 <select id="state">
                 <option value="" disabled selected>Select a State</option>
                 <option value="CA">CA</option>
                 </select>
             </div>
-            <h3 id="distance-header">Distance</h3>
+            <h4 id="distance-header">Distance</h4>
             <div class="input-field">
                 <select id="distance">
                 <option value="" disabled selected>Select a Race Distance</option>
@@ -39,12 +39,13 @@
                 </select>
             </div>
             <div id="slider-date-container">
-                <label id="time-label">Select a Time Period</label>
+                <h4 id="time-header">Time Period</h4>
+                {{!-- <label id="time-label">Select a Time Period</label> --}}
                 <div id="slider-date"></div>
                 <span class="" id="event-start"></span>
                 <span class="" id="event-end"></span>
             </div>
-            <button id="submit-btn" class="btn waves-effect waves-light" type="submit" name="action">Find Your Race</button>
+            <button id="race-submit-btn" class="btn waves-effect waves-light" type="submit" name="action">Find Your Race</button>
         </div>
     </div>
 </div>
@@ -65,23 +66,15 @@
     </div>
 </div>
 
-<!-- customer login modal -->
+<!-- login modal -->
 <div id="login-modal" class="modal">
-    <div class="modal-dialog">
-        <div class="modal-content text-center">
-            <div class="modal-header">
-                <h2 class="modal-title"><strong>Login</strong></h2>
-            </div>
-            <div class="modal-body">
-                <h3>Customer Name</h3>
-                <form action="/api/customer" method="POST" class="button-size" autocomplete="off">
-                    <input id="customer-text" type="text" name="customer"></textarea>
-                    <button id="login-button" class="btn btn-primary" type="submit">Login</button>
-                </form>
-            </div>
+    <div class="modal-content">
+        <h3 id="match-header">Login</h3>
+        <div class="input-field">
+            <input id="user-name" type="text">
+            <label for="user-name">User ID</label>
+            <button id="user-submit-btn" class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
         </div>
-
-    </div>
 </div>
 
 <!-- state validation modal -->
