@@ -35,10 +35,17 @@ module.exports = function(app) {
 		let fromDate = new Date(req.body.startDate);
 		let toDate = new Date(req.body.endDate);
 
+		// get state from the request body. defaults to "CA" if
+		// the state is not set
+		let state = req.body.state || "CA";
+
 		// get all races where the race date is in the
 		// range of the requested dates inclusive
 		DB.Race.findAll({
-			include: [ DB.Location ],
+			include: [{
+				model: DB.Location,
+				where: { state: state }
+			}],
 			order: [["name", "ASC"]],
 			where: {
 				race_date: {
