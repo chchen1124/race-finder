@@ -7,8 +7,8 @@
 * implement jqueryui (mike)
 
 ## Back End
-* handle input on post route
-* respond w/ race based on date and state
+* ~~handle input on post route~~
+* ~~respond w/ race based on date and state~~
 * weather (john)
 
 ## Misc
@@ -27,4 +27,3 @@
 * add urls to database seeds
 * add image urls to database seeds
 * user search history feature
-
