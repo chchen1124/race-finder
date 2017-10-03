@@ -27,6 +27,7 @@ function getObjectFromCSV(csv) {
 		return {
 			raceName: values[0],
 			raceDate: values[1],
+			url: values[5],
 			city: values[2],
 			state: values[3],
 			locationId: values[4]
@@ -45,6 +46,7 @@ function addRecord(record) {
 		DB.Race.create({
 			name: record.raceName,
 			race_date: record.raceDate,
+			url: record.url,
 			LocationId: data.id
 		});
 	})
