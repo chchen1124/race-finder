@@ -61,7 +61,7 @@ module.exports = function(app) {
 				city: firstRace.Location.city,
 				state: firstRace.Location.state,
 				name: firstRace.name,
-				temp: firstRace.avg_temp,
+				temp: null,
 				date: mDate.format("M/D/YYYY")
 			};
 
@@ -73,7 +73,13 @@ module.exports = function(app) {
 				returnedRace.state,
 				mDate.format("YYYYMMDD"),
 				function(error, temps) {
-					returnedRace.temp = temps.mean;
+
+					// set temp if temps was returned
+					if(temps) {
+						returnedRace.temp = temps.mean;
+					}
+
+					// send response with race data
 					res.json(returnedRace);
 				}
 			);
