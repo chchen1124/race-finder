@@ -9,7 +9,7 @@
 const Moment = require("moment");
 const DB = require("../models");
 const Request = require("request");
-const Weather = require("../controllers/weather.js");
+const Weather = require("./weather.js");
 
 // Globals
 // =============================================================
