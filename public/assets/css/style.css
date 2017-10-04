@@ -8,30 +8,14 @@ body {
 	text-align: right;
 	color: #1565c0;
 }
-nav {
-  background-color: rgb(255, 255, 255);
-  height: 200px;
-}
-
-
-
-/* =====================================
-TO DO: Not sure whether you wanted to keep the your (mike) login feature, so I left the CSS function here.
-
-
 
 #login {
   cursor: pointer;
 }
-========================================
-*/
-
 
 #race-header {
-  font-family: 'Lobster', cursive;
-  color: #000000;
-  text-align: center;
-  line-height: 20px; 
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .dropdown-content li>span {

@@ -8,6 +8,7 @@
 
 // Dependencies
 const Request = require("request");
+const Moment = require("moment");
 
 // configuration values
 const apikey = "4c190f89c44f0e65";
@@ -23,21 +24,24 @@ PARAMETERS:
     city and state are strings
     callback function is passed two parameters: error and data
 */
-function getTemps(city, state, dateString, callback) {
+function getTemps(race, callback) {
     let arrGetParams; // array of get api params
-    let queryURL; // complete wu api request url    
+    let queryURL; // complete wu api request url
+    
+    let dateString = Moment(race.date, "D/M/YYYY").subtract(1, "year").format("YYYYMMDD");
 
     // wu api query parameters
     arrGetParams = [
         apikey,
         "history_" + dateString,
         "q",
-        state,
-        city.replace(/ /g, "_")
+        race.state,
+        race.city.replace(/ /g, "_")
     ];
 
     // full query url
     queryURL = wgApiHost + arrGetParams.join("/") + ".json";
+    console.log(queryURL);
     
     // send request to wu api
     Request(queryURL, function(error, response, body) {
