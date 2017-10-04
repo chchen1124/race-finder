@@ -1,17 +1,18 @@
 # Race-Finder TO DO
 
 ## Front End
-* integrate matt's style/html into views (now)
+* ~~integrate matt's style/html into views~~
+* ~~handle weather object from post response (mike)~~
 * handle race url w/ error checking (mike)
-* handle weather object from post response (mike)
 * handle 404 no matching race found from post request (mike)
 * carousel with cards for races including an image (matt/mike)
+* cleanup the ui (mike and matt and everyone)
 
 ## Back End
 * ~~handle input on post route~~
 * ~~respond w/ race based on date and state~~
+* ~~return weather object (mike, or matt)~~
 * handle no match from weather (mike)
-* return weather object (mike, or matt)
 
 ## Misc
 * ~~add urls to database seeds (chris)~~
