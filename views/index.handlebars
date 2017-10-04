@@ -5,17 +5,51 @@
         </div>
     </div>
 </div>
-
+<h1 id="race-header">Race Finder</h1>
 <div class="container" id="jumbotron">
     <div class="row">
         <div class="col s12">
-            <h1 id="race-header">Race Finder</h1>
             <div id="carousel" class="carousel">
-                <a class="carousel-item" href="#one!"><img src="assets/images/big-sur.jpg"></a>
-                <a class="carousel-item" href="#two!"><img src="http://blog.mass.gov/wp-content/uploads/2014/04/marathon.jpg"></a>
-                <a class="carousel-item" href="#three!"><img src="http://runforrob.com/wp-content/uploads/2013/05/new_york_city_marathon1.jpg"></a>
-                <a class="carousel-item" href="#four!"><img src="https://assets.dnainfo.com/generated/chicago_photo/2014/10/chicago-marathon-1412773556.jpg/extralarge.jpg"></a>
-                <a class="carousel-item" href="#five!"><img src="http://50.116.6.194/hb_adm/img/how_you_can_help/la-marathon3.jpg"></a>
+                <a class="carousel-item" href="http://www.bsim.org/site3.aspx" target="_blank">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="assets/images/big-sur.jpg">
+                            <span class="card-title">Big Sur</span>
+                        </div>
+                    </div>
+                </a>
+                <a class="carousel-item" href="http://www.thesfmarathon.com/" target="_blank">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="assets/images/san-francisco.jpg">
+                            <span class="card-title">San Francisco</span>
+                        </div>
+                    </div>
+                </a>
+                <a class="carousel-item" href="http://www.baa.org/races/boston-marathon.aspx" target="_blank">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="assets/images/boston.jpg">
+                            <span class="card-title">Boston</span>
+                        </div>
+                    </div>
+                </a>
+                <a class="carousel-item" href="http://www.tcsnycmarathon.org/" target="_blank">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="assets/images/new-york.jpg">
+                            <span class="card-title">New York City</span>
+                        </div>
+                    </div>
+                </a>
+                <a class="carousel-item" href="https://www.chicagomarathon.com/" target="_blank">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="assets/images/chicago.jpg">
+                            <span class="card-title">Chicago</span>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
@@ -23,7 +57,7 @@
 
 <div class="container" id="input-container">
     <div class="row">
-        <div class="col s12">
+        <div class="col s4 offset-s2">
             <h4 id="state-header">Location</h4>
             <div class="input-field">
                 <select id="state">
@@ -31,6 +65,8 @@
                 <option value="CA" selected>CA</option>
                 </select>
             </div>
+        </div>
+        <div class="col s4">
             <h4 id="distance-header">Distance</h4>
             <div class="input-field">
                 <select id="distance">
@@ -38,6 +74,10 @@
                 <option value="Marathon" selected>Marathon</option>
                 </select>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
             <div id="slider-date-container">
                 <h4 id="time-header">Time Period</h4>
                 {{!-- <label id="time-label">Select a Time Period</label> --}}
@@ -45,24 +85,72 @@
                 <span class="" id="event-start"></span>
                 <span class="" id="event-end"></span>
             </div>
-            <button id="race-submit-btn" class="btn waves-effect waves-light" type="submit" name="action">Find Your Race</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <button id="race-submit-btn" class="btn waves-effect waves-light blue darken-3 z-depth-3" type="submit" name="action">Search</button>
         </div>
     </div>
 </div>
-
 <br>
 
 <!-- Results Modal -->
 <div id="results-modal" class="modal">
-    <div class="modal-content">
-        <h3 id="match-header">Random Match</h3>
+    <div id="races-container" class="modal-content">
+         <div id="carousel" class="carousel">
+                <a class="carousel-item" href="http://www.bsim.org/site3.aspx" target="_blank">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="assets/images/big-sur.jpg">
+                            <span class="card-title">Big Sur</span>
+                        </div>
+                    </div>
+                </a>
+                <a class="carousel-item" href="http://www.thesfmarathon.com/" target="_blank">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="assets/images/san-francisco.jpg">
+                            <span class="card-title">San Francisco</span>
+                        </div>
+                    </div>
+                </a>
+                <a class="carousel-item" href="http://www.baa.org/races/boston-marathon.aspx" target="_blank">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="assets/images/boston.jpg">
+                            <span class="card-title">Boston</span>
+                        </div>
+                    </div>
+                </a>
+                <a class="carousel-item" href="http://www.tcsnycmarathon.org/" target="_blank">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="assets/images/new-york.jpg">
+                            <span class="card-title">New York City</span>
+                        </div>
+                    </div>
+                </a>
+                <a class="carousel-item" href="https://www.chicagomarathon.com/" target="_blank">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="assets/images/chicago.jpg">
+                            <span class="card-title">Chicago</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {{!-- <h3 id="match-header">Your Races</h3>
         <p id="match-name"></p>
-        <p><span id="match-city"></span>, <span id="match-state"></span></p>
+        <p><span id="match-city"></span>, <span id="match-state"></p>
         <p id="match-date"></p>
-        <p><span id="match-temp"></span>&deg;</p>
+        <p><span id="match-temp"></span>&deg;</p> --}}
+    </div>
+    <div class="card-action">
+        <a href="" id="match-url" target="_blank"></a>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+        <a class="modal-action modal-close waves-effect waves-blue darken-3 btn-flat">OK</a>
     </div>
 </div>
 
@@ -70,11 +158,15 @@
 <div id="login-modal" class="modal">
     <div class="modal-content">
         <h3 id="match-header">Login</h3>
-        <div class="input-field">
-            <input id="user-name" type="text">
-            <label for="user-name">User ID</label>
-            <button id="user-submit-btn" class="btn waves-effect waves-light" type="submit" name="action">Submit</button>
-        </div>
+        <form>
+            <div class="input-field">
+                <input id="user-name" type="text">
+                <label for="user-name">User ID</label>
+                <button id="user-submit-btn" class="btn waves-effect waves-light blue darken-3"
+                        type="submit" name="action">Submit</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 <!-- state validation modal -->
@@ -84,7 +176,7 @@
         <p>Please select a state</p>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+        <a href="" class="modal-action modal-close waves-effect waves-blue darken-3 btn-flat">OK</a>
     </div>
 </div>
 
@@ -95,6 +187,6 @@
         <p>Please select a race distance</p>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+        <a href="#!" class="modal-action modal-close waves-effect waves-blue btn-flat">OK</a>
     </div>
 </div>

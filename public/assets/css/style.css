@@ -1,6 +1,12 @@
+body {
+	background-color: #f8f8f8;
+	text-align: center;
+}
+
 #login-container {
     margin-top: 5px;
-    text-align: right;
+	text-align: right;
+	color: #1565c0;
 }
 
 #login {
@@ -12,22 +18,27 @@
     margin-bottom: 10px;
 }
 
+.dropdown-content li>span {
+  color: #1565c0;
+}
+
 .row {
     margin-bottom: 10px;
 }
 
-#jumbotron,
 #input-container {
-    margin-top: 10px;
-    margin-bottom: 20px;
     padding-top: 20px;
-    text-align: center;
-    border-radius: 20px;
-    border: 1px solid black;
+	background-color: white;
+    border: 1px solid #cbd2d6;
+}
+
+#jumbotron {
+    margin-bottom: 20px;
+    border-top: 1px solid #cbd2d6;
 }
 
 #carousel {
-  height: 250px;
+  height: 400px;
 }
 
 #state-header,
@@ -40,8 +51,13 @@
 .input-field,
 #slider-date-container {
     margin:0 auto;
-    width: 300px;
+    width: 200px;
     text-align: center;
+}
+
+#slider-date-container {
+	width: 400px;
+	margin-bottom: 20px;
 }
 
 #time-label {
@@ -67,12 +83,52 @@
     width: 150px;
 }
 
-#race-submit-btn {
+#race-submit-btn,
+#user-submit-btn {
   margin-top: 20px;
   margin-bottom: 20px;
+  border-radius: 20px;
 }
 
 #results-modal,
 #login-modal {
   text-align: center;
+}
+
+#results-carousel {
+	height: 300px;
+}
+
+#carousel {
+	height: 250px;
+}
+
+#card-image {
+    width: 250px;
+}
+
+/* label color */
+.input-field label {
+	color: #1565c0;
+}
+
+/* label focus color */
+.input-field input[type=text]:focus + label {
+	color: #1565c0;
+}
+
+/* label underline focus color */
+input[type=text]:not(.browser-default):focus:not([readonly]) {
+    border-bottom: 1px solid #1565c0;
+	box-shadow: 0 1px 0 0 #1565c0;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]) + label {
+	color: #1565c0;
+}
+
+/* valid color */
+.input-field input[type=text].valid {
+border-bottom: 1px solid #000;
+box-shadow: 0 1px 0 0 #000;
 }

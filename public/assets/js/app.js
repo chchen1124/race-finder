@@ -15,6 +15,7 @@ $(document).ready(function () {
     $("#validate-modal-state").modal();
     $("#validate-modal-distance").modal();
     $(".carousel").carousel();
+    $('.carousel.carousel-slider').carousel({fullWidth: true});
 
     // build date slider (from noUISlider)
     noUiSlider.create(dateSlider, {
@@ -50,7 +51,7 @@ $(document).ready(function () {
 
         event.preventDefault();
 
-        if (loggedIn) {
+        // if (loggedIn) {
 
             if ($("#state").val() && $("#distance").val()) {
 
@@ -66,11 +67,17 @@ $(document).ready(function () {
 
                 $.post("/", raceQuery, function (data) {
 
-                    $("#match-name").text(data.name);
-                    $("#match-city").text(data.city);
-                    $("#match-state").text(data.state);
-                    $("#match-date").text(data.date);
-                    $("#match-temp").text(data.temp);
+                    console.log(data);
+
+                    // data.forEach(function(race) {
+                        $("#match-name").text(data[0].name);
+                        $("#match-city").text(data[0].city);
+                        $("#match-state").text(data[0].state);
+                        $("#match-date").text(data[0].date);
+                        $("#match-temp").text(data[0].temp);
+                        $("#match-url").text(data[0].url);
+                        $("#match-url").attr("href", data[0].url);
+                    // });
 
                     $("#results-modal").modal("open");
                 });
@@ -89,12 +96,12 @@ $(document).ready(function () {
                 }
             }
                 
-        }
+        // }
 
         // not logged in
-        else {
-            $("#login-modal").modal("open");
-        }
+        // else {
+        //     $("#login-modal").modal("open");
+        // }
 
     });
 
@@ -102,6 +109,7 @@ $(document).ready(function () {
 
         if(!loggedIn) {
             $("#login-modal").modal("open");
+            $("#race-submit-button").addClass("scale-in");   
         }
 
         else {
@@ -112,7 +120,9 @@ $(document).ready(function () {
     });
 });
 
-$("#user-submit-btn").click(function() {
+$("#user-submit-btn").click(function(event) {
+
+    event.preventDefault();
 
     let newUser = {};
 
@@ -128,7 +138,6 @@ $("#user-submit-btn").click(function() {
 
             // on success
             if (data) {
-
                 user = newUser;
                 user.id = data.id;
                 loggedIn = true;
