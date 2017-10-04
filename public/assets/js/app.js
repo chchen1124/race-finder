@@ -69,15 +69,38 @@ $(document).ready(function () {
 
                     console.log(data);
 
-                    // data.forEach(function(race) {
-                        $("#match-name").text(data[0].name);
-                        $("#match-city").text(data[0].city);
-                        $("#match-state").text(data[0].state);
-                        $("#match-date").text(data[0].date);
-                        $("#match-temp").text(data[0].temp);
-                        $("#match-url").text(data[0].url);
-                        $("#match-url").attr("href", data[0].url);
-                    // });
+                    // loop through all races received and add to html
+                    for(let i = 0; i < data.length; i++) {
+
+                        let raceNameP = $("<p>");
+                        raceNameP.text(data[i].name);
+                        
+                        let raceCityP = $("<p>");
+                        raceCityP.text(data[i].city);
+
+                        let raceStateP = $("<p>");
+                        raceStateP.text(data[i].state);
+
+                        let raceDateP = $("<p>");
+                        raceDateP.text(data[i].date);
+
+                        let raceTempP = $("<p>");
+                        raceTempP.text(data[i].temp);
+
+                        let raceURLP = $("<p>");
+                        let raceURLA = $("<a>");
+                        raceURLA.text(data[i].url);
+                        raceURLA.attr({
+                            "href": data[i].url,
+                            "target": "_blank"
+                        });
+                        raceURLP.append(raceURLA);
+
+                        let raceDiv = $("<div>");
+                        raceDiv.append( raceNameP, raceCityP, raceStateP, raceDateP, raceTempP, raceURLP);
+
+                        $("#races-container").append(raceDiv);
+                    }
 
                     $("#results-modal").modal("open");
                 });
