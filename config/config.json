@@ -1,8 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "Mattmatt09!",
-    "port": 3307,
+    "password": "",
     "database": "race_finder",
     "host": "127.0.0.1",
     "dialect": "mysql"
