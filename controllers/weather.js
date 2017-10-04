@@ -23,9 +23,10 @@ PARAMETERS:
     city and state are strings
     callback function is passed two parameters: error and data
 */
-function getTemps(city, state, dateString, callback) {
+function getTemps(dateString, state, city, callback) {
+    
     let arrGetParams; // array of get api params
-    let queryURL; // complete wu api request url    
+    let queryURL; // complete wu api request url
 
     // wu api query parameters
     arrGetParams = [
@@ -38,6 +39,7 @@ function getTemps(city, state, dateString, callback) {
 
     // full query url
     queryURL = wgApiHost + arrGetParams.join("/") + ".json";
+    console.log(queryURL);
     
     // send request to wu api
     Request(queryURL, function(error, response, body) {

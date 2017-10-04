@@ -15,6 +15,13 @@ $(document).ready(function () {
     $("#validate-modal-state").modal();
     $("#validate-modal-distance").modal();
     $(".carousel").carousel();
+    $('.carousel.carousel-slider').carousel({fullWidth: true});
+
+    //Flip function of each card
+    $(".card").flip({
+        axis: 'y',
+        trigger: 'hover',
+    });
 
     // build date slider (from noUISlider)
     noUiSlider.create(dateSlider, {
@@ -50,7 +57,7 @@ $(document).ready(function () {
 
         event.preventDefault();
 
-        if (loggedIn) {
+        // if (loggedIn) {
 
             if ($("#state").val() && $("#distance").val()) {
 
@@ -66,11 +73,40 @@ $(document).ready(function () {
 
                 $.post("/", raceQuery, function (data) {
 
-                    $("#match-name").text(data.name);
-                    $("#match-city").text(data.city);
-                    $("#match-state").text(data.state);
-                    $("#match-date").text(data.date);
-                    $("#match-temp").text(data.temp);
+                    console.log(data);
+
+                    // loop through all races received and add to html
+                    for(let i = 0; i < data.length; i++) {
+
+                        let raceNameP = $("<p>");
+                        raceNameP.text(data[i].name);
+                        
+                        let raceCityP = $("<p>");
+                        raceCityP.text(data[i].city);
+
+                        let raceStateP = $("<p>");
+                        raceStateP.text(data[i].state);
+
+                        let raceDateP = $("<p>");
+                        raceDateP.text(data[i].date);
+
+                        let raceTempP = $("<p>");
+                        raceTempP.text(data[i].temp);
+
+                        let raceURLP = $("<p>");
+                        let raceURLA = $("<a>");
+                        raceURLA.text(data[i].url);
+                        raceURLA.attr({
+                            "href": data[i].url,
+                            "target": "_blank"
+                        });
+                        raceURLP.append(raceURLA);
+
+                        let raceDiv = $("<div>");
+                        raceDiv.append( raceNameP, raceCityP, raceStateP, raceDateP, raceTempP, raceURLP);
+
+                        $("#races-container").append(raceDiv);
+                    }
 
                     $("#results-modal").modal("open");
                 });
@@ -89,12 +125,12 @@ $(document).ready(function () {
                 }
             }
                 
-        }
+        // }
 
         // not logged in
-        else {
-            $("#login-modal").modal("open");
-        }
+        // else {
+        //     $("#login-modal").modal("open");
+        // }
 
     });
 
@@ -102,6 +138,7 @@ $(document).ready(function () {
 
         if(!loggedIn) {
             $("#login-modal").modal("open");
+            $("#race-submit-button").addClass("scale-in");   
         }
 
         else {
@@ -112,7 +149,9 @@ $(document).ready(function () {
     });
 });
 
-$("#user-submit-btn").click(function() {
+$("#user-submit-btn").click(function(event) {
+
+    event.preventDefault();
 
     let newUser = {};
 
@@ -128,7 +167,6 @@ $("#user-submit-btn").click(function() {
 
             // on success
             if (data) {
-
                 user = newUser;
                 user.id = data.id;
                 loggedIn = true;

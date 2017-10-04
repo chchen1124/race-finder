@@ -12,6 +12,10 @@ const Request = require("request");
 const Weather = require("./weather.js");
 const Op = require("sequelize").Op; // query operaters from sequelize
 
+// array and index for recursive API calls
+let racesToReturn = [];
+let index = 0;
+
 // Routes
 // =============================================================
 module.exports = function(app) {
@@ -31,8 +35,6 @@ module.exports = function(app) {
 
 	// Query database to return a race json
 	app.post("/", function(req, res) {
-
-		console.log(req.body);
 		
 		addSearchToDB(req.body);
 
@@ -60,42 +62,20 @@ module.exports = function(app) {
 				}
 			}			
 		}).then(function(data) {
+
 			// return an empty object if no matching data is found
 			if(data.length < 1) {
 				return res.status(404).send("No matching races found.");
 			}
+			
+			racesToReturn = [];
+			index = 0;
 
-			// get the first race from the returned array
-			// of races
-			let firstRace = data[0];
-			let mDate = Moment(firstRace.race_date, "YYYY-MM-DD");
-			let returnedRace = {
-				city: firstRace.Location.city,
-				state: firstRace.Location.state,
-				name: firstRace.name,
-				temp: null,
-				url: firstRace.url,
-				date: mDate.format("M/D/YYYY")
-			};
+			buildArrayOfRaces(data, function() {
 
-			// get the temperature data for the city exactly
-			// on year prior to the date of the race event
-			mDate = mDate.subtract(1, "year");
-			Weather.getTemps(
-				returnedRace.city,
-				returnedRace.state,
-				mDate.format("YYYYMMDD"),
-				function(error, temps) {
-
-					// set temp if temps was returned
-					if(temps) {
-						returnedRace.temp = temps.mean;
-					}
-
-					// send response with race data
-					res.json(returnedRace);
-				}
-			);
+				// send response with race data
+				res.json(racesToReturn);
+			});
 		}).catch(console.log);
 	});
 
@@ -132,11 +112,76 @@ module.exports = function(app) {
 // helper function to add current search to database
 function addSearchToDB(search, res) {
 	
-		console.log(search);
-		DB.Search.create({
-			state: search.state,
-			start_date: search.startDate,
-			end_date: search.endDate,
-			UserId: search.id
+	console.log(search);
+	DB.Search.create({
+		state: search.state,
+		start_date: search.startDate,
+		end_date: search.endDate,
+		UserId: search.id
+	});
+}
+
+// buildArrayOfRaces takes in the search results array and a callback
+// to execute when recursive weather calls are complete
+function buildArrayOfRaces(data, callback) {
+				
+	if(index < data.length && index < 5) {
+		
+		// wrap db date with moment object
+		let mDate = Moment(data[index].race_date, "YYYY-MM-DD");
+	
+		racesToReturn.push({
+			city: data[index].Location.city,
+			state: data[index].Location.state,
+			name: data[index].name,
+			temp: data[index].avg_temp,
+			url: data[index].url,
+			date: mDate.format("M/D/YYYY")
 		});
+
+		// if the avg_temp is null, get the temperature data
+		// for the city exactly one year prior to the date of the race event
+		// mDate = Moment date
+		if(!racesToReturn[index].temp) {
+
+			let dateString = mDate.subtract(1, "year").format("YYYYMMDD");
+
+			Weather.getTemps(dateString, racesToReturn[index].state, racesToReturn[index].city, function (error, temps) {
+				
+				// set temp if temps was returned from API call
+				if (temps) {
+
+					racesToReturn[index].temp = temps.mean;
+
+					// addTemp to DB
+					// updateDBWithRaceTemps(racesToReturn[index]);
+				}
+
+				index++;
+				buildArrayOfRaces(data, callback);
+
+			});
+		}
+
+		else {
+
+			index++;
+			buildArrayOfRaces(data, callback);			
+		}
 	}
+
+	else {
+		callback();
+	}
+}
+
+// helper function to add a temp to race record in races table
+function updateDBWithRaceTemps(race) {
+	DB.Race.update({
+		avg_temp: race.temp
+	}, {
+		where: {
+		name: race.name
+		}
+	});
+}

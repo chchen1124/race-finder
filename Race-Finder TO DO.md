@@ -1,29 +1,41 @@
 # Race-Finder TO DO
 
 ## Front End
-* integrate matt's style/html into handlebars
-* handle no race url
-* handle unexpected server response
-* implement jqueryui (mike)
+* ~~integrate matt's style/html into views~~
+* ~~handle weather object from post response (mike)~~
+* handle race url w/ error checking (mike)
+* handle 404 no matching race found from post request (mike)
+* carousel with cards for races including an image (matt/mike)
+* cleanup the ui (mike and matt and everyone)
 
 ## Back End
 * ~~handle input on post route~~
 * ~~respond w/ race based on date and state~~
-* weather (john)
+* ~~return weather object (mike, or matt)~~
+* handle no match from weather (mike)
 
 ## Misc
-* Testing framework
-* Powerpoint Presentation
-* Presentation Roles
+* ~~add urls to database seeds (chris)~~
+* ~~user search history feature (mike)~~
+* add image urls to database seeds (chris)
+* save image thumbnails (chris)
+* Powerpoint Presentation (mike and matt)
+* Presentation Roles--who will talk about what
 * Practice Presentation
+* Testing framework--mocha or jasmine (john & mike)
 
----------------------------------------
 ## User Login
-* table (user name, unique handle)
-* User crud api routes
-* user login view(s) for crud
+* ~~table (user name, unique handle)~~
+* ~~user login view(s) for~~
+
+## QA
+* mobile responsive?
+* do we require login or not?
+* do we format view in such a way as to not require scrolling?
+---------------------------------------
 
 ## Other items for later
-* ~~add urls to database seeds~~
-* add image urls to database seeds
-* user search history feature
+* get more weather data and create algorithm to match event based on weather
+* handle unexpected server response
+* noaa weather (john)
+* do something useful with user search history
