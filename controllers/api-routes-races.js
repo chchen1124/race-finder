@@ -153,7 +153,9 @@ function buildArrayOfRaces(data, callback) {
 		// mDate = Moment date
 		if(!racesToReturn[index].temp) {
 
-			Weather.getTemps(racesToReturn[index], function (error, temps) {
+			let dateString = mDate.subtract(1, "year").format("YYYYMMDD");
+
+			Weather.getTemps(dateString, racesToReturn[index].state, racesToReturn[index].city, function (error, temps) {
 				
 				// set temp if temps was returned from API call
 				if (temps) {
