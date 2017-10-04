@@ -17,6 +17,12 @@ $(document).ready(function () {
     $(".carousel").carousel();
     $('.carousel.carousel-slider').carousel({fullWidth: true});
 
+    //Flip function of each card
+    $(".card").flip({
+        axis: 'y',
+        trigger: 'hover',
+    });
+
     // build date slider (from noUISlider)
     noUiSlider.create(dateSlider, {
         // Create two timestamps to define a range.
