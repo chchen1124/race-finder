@@ -121,17 +121,8 @@ function addSearchToDB(search, res) {
 	});
 }
 
-// helper function to add a temp to race record in races table
-function updateDBWithRaceTemps(races) {
-	DB.Race.update({
-		avg_temp: race.temp
-	}, {
-		where: {
-		name: race.name
-		}
-	});
-}
-
+// buildArrayOfRaces takes in the search results array and a callback
+// to execute when recursive weather calls are complete
 function buildArrayOfRaces(data, callback) {
 				
 	if(index < data.length && index < 5) {
@@ -159,11 +150,16 @@ function buildArrayOfRaces(data, callback) {
 				
 				// set temp if temps was returned from API call
 				if (temps) {
+
 					racesToReturn[index].temp = temps.mean;
+
+					// addTemp to DB
+					// updateDBWithRaceTemps(racesToReturn[index]);
 				}
 
 				index++;
 				buildArrayOfRaces(data, callback);
+
 			});
 		}
 
@@ -177,4 +173,15 @@ function buildArrayOfRaces(data, callback) {
 	else {
 		callback();
 	}
+}
+
+// helper function to add a temp to race record in races table
+function updateDBWithRaceTemps(race) {
+	DB.Race.update({
+		avg_temp: race.temp
+	}, {
+		where: {
+		name: race.name
+		}
+	});
 }
