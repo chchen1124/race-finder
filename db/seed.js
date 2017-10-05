@@ -1,17 +1,17 @@
-// *********************************************************************************
+// ***************************************************************************
 // seeds.js
 //
 // Run this script to seed the race_finder db.
 //
 // To seed the race_finder db after intiializing the schema, run the following:
 // "...race-finder/db$ node seeds.js".
-// *********************************************************************************
+// ***************************************************************************
 
 const FS = require("fs");
 const DB = require("../models");
 
 // fully qualified file name for the seeds csv.
-const SEEDS_FILE = `${__dirname }/race_finder_seeds.csv`;
+const SEEDS_FILE = `${__dirname}/race_finder_seeds.csv`;
 
 // Returns array of objects for each record in string of csv.
 // csv must contain one record per line (utf8).
@@ -31,6 +31,7 @@ function getObjectFromCSV(csv) {
             city: values[2],
             state: values[3],
             locationId: values[4],
+            thumbnail: values[6],
         };
     });
 }
@@ -48,6 +49,7 @@ function addRecord(record) {
             race_date: record.raceDate,
             url: record.url,
             LocationId: data.id,
+            thumbnail: record.thumbnail,
         });
     });
 }
