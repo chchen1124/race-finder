@@ -16,11 +16,6 @@ $(document).ready(function () {
     $(".carousel").carousel();
     $('.carousel.carousel-slider').carousel({fullWidth: true});
 
-    //Flip function of each card
-    $(".card").flip({
-        axis: 'y',
-        trigger: 'hover',
-    });
 
     // build date slider (from noUISlider)
     noUiSlider.create(dateSlider, {
@@ -222,6 +217,8 @@ function formatDate(date) {
 $("#marathon").click(function () {
 
     $("#distance-btn").text("Marathon");
+    $("#distance-btn").toggleClass('active');
+
 });
 
 // click listenere for CA drop-down option
@@ -229,4 +226,5 @@ $("#marathon").click(function () {
 $("#CA").click(function () {
 
     $("#location-btn").text("CA");
+    $("#location-btn").toggleClass('focus');
 });
