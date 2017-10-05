@@ -1,12 +1,12 @@
 body {
-	background-color: #f8f8f8;
+	background-color: white;
 	text-align: center;
 }
 
 #login-container {
     margin-top: 5px;
 	text-align: right;
-	color: #1565c0;
+	color: #1976d2;
 }
 
 #login {
@@ -19,7 +19,7 @@ body {
 }
 
 .dropdown-content li>span {
-  color: #1565c0;
+  color: #1e88e5;
 }
 
 .row {
@@ -28,13 +28,14 @@ body {
 
 #input-container {
     padding-top: 20px;
-	background-color: white;
-    border: 1px solid #cbd2d6;
+	/* background-color: #f8f8f8; */
+    border-top: 1px solid #cbd2d6;
 }
 
 #jumbotron {
     margin-bottom: 20px;
     border-top: 1px solid #cbd2d6;
+    height: 250px;
 }
 
 #carousel {
@@ -84,7 +85,8 @@ body {
 }
 
 #race-submit-btn,
-#user-submit-btn {
+#user-submit-btn,
+.dropdown-button.btn {
   margin-top: 20px;
   margin-bottom: 20px;
   border-radius: 20px;
@@ -93,6 +95,7 @@ body {
 #results-modal,
 #login-modal {
   text-align: center;
+  height: auto;
 }
 
 #results-carousel {
@@ -109,26 +112,51 @@ body {
 
 /* label color */
 .input-field label {
-	color: #1565c0;
+	color: #1e88e5;
 }
 
 /* label focus color */
 .input-field input[type=text]:focus + label {
-	color: #1565c0;
+	color: #1e88e5;
 }
 
 /* label underline focus color */
 input[type=text]:not(.browser-default):focus:not([readonly]) {
-    border-bottom: 1px solid #1565c0;
-	box-shadow: 0 1px 0 0 #1565c0;
+    border-bottom: 1px solid #1e88e5;
+	box-shadow: 0 1px 0 0 #1e88e5;
 }
 
 input[type=text]:not(.browser-default):focus:not([readonly]) + label {
-	color: #1565c0;
+	color: #1e88e5;
 }
 
 /* valid color */
 .input-field input[type=text].valid {
 border-bottom: 1px solid #000;
 box-shadow: 0 1px 0 0 #000;
+}
+
+#results-header {
+  margin-top: 20px;
+}
+
+#dropdown-location {
+  position: absolute;
+  top: 100px;
+}
+
+#marathon,
+#CA {
+  color: #1e88e5;
+}
+
+#location-btn,
+#distance-btn {
+
+  /* padding-right: 15px; */
+  /* width: 165px; */
+}
+
+.back {
+  height: 200px;
 }

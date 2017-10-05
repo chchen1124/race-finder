@@ -154,11 +154,18 @@ function buildArrayOfRaces(data, callback) {
 					racesToReturn[index].temp = temps.mean;
 
 					// addTemp to DB
-					// updateDBWithRaceTemps(racesToReturn[index]);
+					updateDBWithRaceTemps(racesToReturn[index], function () {
+
+						index++;
+						buildArrayOfRaces(data, callback);
+					});
 				}
 
-				index++;
-				buildArrayOfRaces(data, callback);
+				else {
+
+					index++;
+					buildArrayOfRaces(data, callback);
+				}
 
 			});
 		}
@@ -176,12 +183,12 @@ function buildArrayOfRaces(data, callback) {
 }
 
 // helper function to add a temp to race record in races table
-function updateDBWithRaceTemps(race) {
+function updateDBWithRaceTemps(race, callback) {
 	DB.Race.update({
 		avg_temp: race.temp
 	}, {
 		where: {
 		name: race.name
 		}
-	});
+	}).then(callback());
 }

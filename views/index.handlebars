@@ -7,73 +7,76 @@
 </div>
 <h1 id="race-header">Race Finder</h1>
 <div class="container" id="jumbotron">
-    <div class="row">
-        <div class="col s12">
-            <div id="carousel" class="carousel">
-                <a class="carousel-item" href="http://www.bsim.org/site3.aspx" target="_blank">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="assets/images/big-sur.jpg">
-                            <span class="card-title">Big Sur</span>
-                        </div>
+
+    <div id="carousel" class="carousel">
+        <a id="carousel-item-0" class="carousel-item" href="http://www.bsim.org/site3.aspx" target="_blank">
+            <div class="card">
+                {{!-- <div class="front"> --}}
+                    <div class="card-image">
+                        <img id="card-img-0" src="assets/images/big-sur.jpg">
+                        <span id="card-title-0" class="card-title">Big Sur</span>
                     </div>
-                </a>
-                <a class="carousel-item" href="http://www.thesfmarathon.com/" target="_blank">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="assets/images/san-francisco.jpg">
-                            <span class="card-title">San Francisco</span>
-                        </div>
-                    </div>
-                </a>
-                <a class="carousel-item" href="http://www.baa.org/races/boston-marathon.aspx" target="_blank">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="assets/images/boston.jpg">
-                            <span class="card-title">Boston</span>
-                        </div>
-                    </div>
-                </a>
-                <a class="carousel-item" href="http://www.tcsnycmarathon.org/" target="_blank">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="assets/images/new-york.jpg">
-                            <span class="card-title">New York City</span>
-                        </div>
-                    </div>
-                </a>
-                <a class="carousel-item" href="https://www.chicagomarathon.com/" target="_blank">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="assets/images/chicago.jpg">
-                            <span class="card-title">Chicago</span>
-                        </div>
-                    </div>
-                </a>
+                {{!-- </div> --}}
+                {{!-- <div class="back">
+                    <p id="race-city-state-0">Carmel, CA</p>
+                    <p id="race-date-0">4/29/2018</p>
+                    <p id="race-temp-0">58.5</p>
+                </div> --}}
             </div>
-        </div>
+        </a>
+        <a id="carousel-item-1" class="carousel-item" href="http://www.thesfmarathon.com/" target="_blank">
+            <div class="card">
+                <div class="card-image">
+                    <img id="card-img-1" src="assets/images/san-francisco.jpg">
+                    <span id="card-title-1" class="card-title">San Francisco</span>
+                </div>
+            </div>
+        </a>
+        <a id="carousel-item-2" class="carousel-item" href="http://www.baa.org/races/boston-marathon.aspx" target="_blank">
+            <div class="card">
+                <div class="card-image">
+                    <img id="card-img-2" src="assets/images/boston.jpg">
+                    <span id="card-title-2" class="card-title">Boston</span>
+                </div>
+            </div>
+        </a>
+        <a id="carousel-item-3" class="carousel-item" href="http://www.tcsnycmarathon.org/" target="_blank">
+            <div class="card">
+                <div class="card-image">
+                    <img id="card-img-3" src="assets/images/new-york.jpg">
+                    <span id="card-title-3" class="card-title">New York City</span>
+                </div>
+            </div>
+        </a>
+        <a id="carousel-item-4" class="carousel-item" href="https://www.chicagomarathon.com/" target="_blank">
+            <div class="card">
+                <div class="card-image">
+                    <img id="card-img-4" src="assets/images/chicago.jpg">
+                    <span id="card-title-4" class="card-title">Chicago</span>
+                </div>
+            </div>
+        </a>
     </div>
+
 </div>
 
 <div class="container" id="input-container">
     <div class="row">
         <div class="col s4 offset-s2">
-            <h4 id="state-header">Location</h4>
-            <div class="input-field">
-                <select id="state">
-                <option value="" disabled selected>Select a State</option>
-                <option value="CA" selected>CA</option>
-                </select>
-            </div>
+            <a id="location-btn" class="dropdown-button btn waves-effect waves-light blue darken-1 z-depth-3" data-activates="dropdown-location">
+                Location <i class="material-icons right">arrow_drop_down</i>
+            </a>
+            <ul id="dropdown-location" class="dropdown-content">
+                <li><a id="CA">CA</a></li>
+            </ul>
         </div>
         <div class="col s4">
-            <h4 id="distance-header">Distance</h4>
-            <div class="input-field">
-                <select id="distance">
-                <option value="" disabled selected>Select a Race Distance</option>
-                <option value="Marathon" selected>Marathon</option>
-                </select>
-            </div>
+            <a id="distance-btn" class="dropdown-button btn waves-effect waves-light blue darken-1 z-depth-3" data-activates="dropdown-distance">
+                Distance <i class="material-icons right">arrow_drop_down</i>
+            </a>
+            <ul id="dropdown-distance" class="dropdown-content">
+                <li><a id="marathon">Marathon</a></li>
+            </ul>
         </div>
     </div>
     <div class="row">
@@ -89,7 +92,7 @@
     </div>
     <div class="row">
         <div class="col s12">
-            <button id="race-submit-btn" class="btn waves-effect waves-light blue darken-3 z-depth-3" type="submit" name="action">Search</button>
+            <button id="race-submit-btn" class="btn waves-effect waves-light blue darken-1 z-depth-3" type="submit" name="action">Search</button>
         </div>
     </div>
 </div>
@@ -99,10 +102,10 @@
 <div id="results-modal" class="modal">
     <h3 id="results-header">Your Races</h3>
     <div id="races-container" class="modal-content">
- 
+
     </div>
     <div class="modal-footer">
-        <a class="modal-action modal-close waves-effect waves-blue darken-3 btn-flat">OK</a>
+        <a class="modal-action modal-close waves-effect waves-blue darken-1 btn-flat">OK</a>
     </div>
 </div>
 
@@ -114,30 +117,19 @@
             <div class="input-field">
                 <input id="user-name" type="text">
                 <label for="user-name">User ID</label>
-                <button id="user-submit-btn" class="btn waves-effect waves-light blue darken-3" type="submit" name="action">Submit</button>
+                <button id="user-submit-btn" class="btn waves-effect waves-light blue darken-1" type="submit" name="action">Submit</button>
             </div>
         </form>
     </div>
 </div>
 
-<!-- state validation modal -->
-<div id="validate-modal-state" class="modal">
+<!-- validation modal -->
+<div id="validate-modal" class="modal">
     <div class="modal-content">
         <h3 id="match-header">Error</h3>
-        <p>Please select a state</p>
+        <p id="validate-error-message"></p>
     </div>
     <div class="modal-footer">
-        <a href="" class="modal-action modal-close waves-effect waves-blue darken-3 btn-flat">OK</a>
-    </div>
-</div>
-
-<!-- distance validation modal -->
-<div id="validate-modal-distance" class="modal">
-    <div class="modal-content">
-        <h3 id="match-header">Error</h3>
-        <p>Please select a race distance</p>
-    </div>
-    <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-blue btn-flat">OK</a>
+        <a class="modal-action modal-close waves-effect waves-blue darken-3 btn-flat">OK</a>
     </div>
 </div>

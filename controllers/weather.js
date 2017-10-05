@@ -51,10 +51,9 @@ function getTemps(dateString, state, city, callback) {
         // run the callback if an error is returned
         if(error) { return callback(error); }
 
-        // get min, max, and calculated mean from response data
-        arrObservations = JSON.parse(body).history.observations;
-        temps.min = parseFloat(arrObservations[6].tempi);
-        temps.max = parseFloat(arrObservations[10].tempi);
+        // get both min and max from dailySummary
+        temps.min = parseFloat(JSON.parse(body).history.dailysummary[0].mintempi);
+        temps.max = parseFloat(JSON.parse(body).history.dailysummary[0].meantempi);
         temps.mean = ((temps.min+temps.max)/2).toFixed(1);
 
         // pass temps to the callback

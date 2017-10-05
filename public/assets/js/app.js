@@ -5,18 +5,17 @@ let dateSlider = document.getElementById("slider-date");
 
 let loggedIn = false;
 let user = "";
+let imageFilenames = ["ave-giants.jpg", "bakersfield.jpg", "big-sur.jpg", "bizz-johnson.jpg", "cim.jpg"];
 
 $(document).ready(function () {
 
     // initialize Materialize components
-    $("select").material_select();
     $("#results-modal").modal();
     $("#login-modal").modal();
-    $("#validate-modal-state").modal();
-    $("#validate-modal-distance").modal();
+    $("#validate-modal").modal();
     $(".carousel").carousel();
-    $('.carousel.carousel-slider').carousel({fullWidth: true});
-
+    $('.slider').slider();
+    
     // build date slider (from noUISlider)
     noUiSlider.create(dateSlider, {
         // Create two timestamps to define a range.
@@ -51,71 +50,101 @@ $(document).ready(function () {
 
         event.preventDefault();
 
+        $("#carousel").hide();
+
         // if (loggedIn) {
 
-            if ($("#state").val() && $("#distance").val()) {
+            if($("#location-btn").text() === "CA" && $("#distance-btn").text() === "Marathon") { 
 
                 let raceQuery = {};
+                let runningMan = $("<img>");
 
-                raceQuery.state = $("#state").val();
+                runningMan.attr({
+                    "id": "running-man",
+                    "src": "assets/images/running.gif",
+                    "height": "250px;"});
+        
+                $("#jumbotron").append(runningMan);
+
+                raceQuery.state = "CA";
                 raceQuery.startDate = $("#event-start").text();
                 raceQuery.endDate = $("#event-end").text();
                 raceQuery.id = user.id;
                 raceQuery.username = user.username;
 
-                console.log(raceQuery);
+                setTimeout(function() {
 
-                $.post("/", raceQuery, function (data) {
-
-                    console.log(data);
-
-                    // loop through all races received and add to html
-                    for(let i = 0; i < data.length; i++) {
-
-                        let raceNameP = $("<p>");
-                        raceNameP.text(data[i].name);
+                    $.post("/", raceQuery, function (data) {
                         
-                        let raceCityP = $("<p>");
-                        raceCityP.text(data[i].city);
+                        console.log(data);
+    
+                        $("#results-header").text("Your Races (" + data.length + ")");
+                        $("#races-container").empty();
+    
+                        // loop through all races received and add to html
+                        for(let i = 0; i < data.length; i++) {
 
-                        let raceStateP = $("<p>");
-                        raceStateP.text(data[i].state);
+                            $("#carousel-item-" + i).attr("href", data[i].url);
+                            $("#card-img-" + i).attr("src", "assets/images/thumbs/" + imageFilenames[i]);
+                            $("#card-title-" + i).text(data[i].name);
 
-                        let raceDateP = $("<p>");
-                        raceDateP.text(data[i].date);
+                            // let raceNameP = $("<p>");
+                            // raceNameP.html("<b>" + data[i].name + "</b>");
+                            
+                            // let raceCityStateP = $("<p>");
+                            // raceCityStateP.text(data[i].city + ", " + data[i].state);
+    
+                            // let raceDateP = $("<p>");
+                            // raceDateP.text(data[i].date);
+    
+                            // let raceTempP = $("<p>");
+                            // raceTempP.html(data[i].temp + "&deg;");
+    
+                            // let raceURLP = $("<p>");
+    
+                            // if(data[i].url) {
+    
+                            //     let raceURLA = $("<a>");
+                            //     raceURLA.text(data[i].url);
+                            //     raceURLA.attr({ "href": data[i].url, "target": "_blank" });
+                            //     raceURLP.append(raceURLA);
+                            // }
+                            
+                            // else {
+                            //     raceURLP.text("Website URL Unavailable");
+                            // }
+    
+                            // let raceDiv = $("<div>");
+                            // raceDiv.addClass("race-result-div");
+                            // raceDiv.append( raceNameP, raceCityStateP, raceDateP, raceTempP, raceURLP);
+    
+                            // $("#races-container").append(raceDiv);
+                            // $("#results-modal").modal("open");
 
-                        let raceTempP = $("<p>");
-                        raceTempP.text(data[i].temp);
-
-                        let raceURLP = $("<p>");
-                        let raceURLA = $("<a>");
-                        raceURLA.text(data[i].url);
-                        raceURLA.attr({
-                            "href": data[i].url,
-                            "target": "_blank"
-                        });
-                        raceURLP.append(raceURLA);
-
-                        let raceDiv = $("<div>");
-                        raceDiv.append( raceNameP, raceCityP, raceStateP, raceDateP, raceTempP, raceURLP);
-
-                        $("#races-container").append(raceDiv);
-                    }
-
-                    $("#results-modal").modal("open");
-                });
+                            $("#running-man").hide();
+                            $("#carousel").show();
+                        }
+    
+                    }).fail(function() {
+    
+                        $("#races-container").html("There are no races for your search");
+                        $("#results-modal").modal("open");
+                    });
+                }, 1000);
             }
 
             else {
 
-                if (!$("#state").val()) {
+                if ($("#location-btn").text() !== "CA" ) {
 
-                    $("#validate-modal-state").modal("open");
+                    $("#validate-error-message").text("Please select a state");
+                    $("#validate-modal").modal("open");
                 }
 
                 else {
 
-                    $("#validate-modal-distance").modal("open");
+                    $("#validate-error-message").text("Please select a race distance");
+                    $("#validate-modal").modal("open");
                 }
             }
                 
@@ -171,6 +200,7 @@ $("#user-submit-btn").click(function(event) {
     }
 });
 
+// helper function for date slider
 function timestamp(str) {
     return new Date(str).getTime();
 }
@@ -179,3 +209,17 @@ function timestamp(str) {
 function formatDate(date) {
     return moment(date).format("M/D/YYYY");
 }
+
+// click listener for Marathon drop-down button
+// changes text on button to "Marathon"
+$("#marathon").click(function () {
+
+    $("#distance-btn").text("Marathon");
+});
+
+// click listenere for CA drop-down option
+// changes text on button to "CA"
+$("#CA").click(function () {
+
+    $("#location-btn").text("CA");
+});
