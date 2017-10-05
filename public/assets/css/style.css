@@ -102,22 +102,17 @@ body {
 	height: 300px;
 }
 
-#carousel {
-	height: 250px;
-}
-
-.card-title {
-  overflow: auto;
-}
-
 img {
   max-width:100%;
   max-height: 100%;
 }
 
-.carousel-item {
-  width: 250px;
-  height: 250px;
+span {
+  display: inline-block;
+}
+
+#carousel {
+	height: 250px;
 }
 
 /* label color */
@@ -163,8 +158,13 @@ box-shadow: 0 1px 0 0 #000;
 #location-btn,
 #distance-btn {
 
-  /* padding-right: 15px; */
-  /* width: 165px; */
+  padding-right: 15px;
+
+}
+
+#location-btn.focus,
+#distance-btn.focus {
+  padding-right: 80px;
 }
 
 #running-man {
@@ -203,3 +203,4 @@ box-shadow: 0 1px 0 0 #000;
 #results-carousel {
   display: none;
 }
+=======
