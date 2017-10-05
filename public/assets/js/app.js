@@ -14,8 +14,14 @@ $(document).ready(function () {
     $("#login-modal").modal();
     $("#validate-modal").modal();
     $(".carousel").carousel();
-    $('.slider').slider();
-    
+    $('.carousel.carousel-slider').carousel({fullWidth: true});
+
+    //Flip function of each card
+    $(".card").flip({
+        axis: 'y',
+        trigger: 'hover',
+    });
+
     // build date slider (from noUISlider)
     noUiSlider.create(dateSlider, {
         // Create two timestamps to define a range.
