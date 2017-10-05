@@ -19,8 +19,6 @@ let index = 0;
 // Routes
 // =============================================================
 module.exports = function(app) {
-
-
 	// Get all races
 	app.get("/api/races/all", function(req, res) {
 		DB.Race.findAll({}).then(function(results) {
@@ -100,8 +98,6 @@ module.exports = function(app) {
 					username: req.body.username,
 					password: "1234"
 				}).then(function(data) {
-
-					console.log(data.dataValues);
 					res.json(data.dataValues);
 				});
 			}
@@ -110,14 +106,15 @@ module.exports = function(app) {
 };
 
 // helper function to add current search to database
-function addSearchToDB(search, res) {
-	
-	console.log(search);
+function addSearchToDB(search, res, errorHandler) {
 	DB.Search.create({
 		state: search.state,
 		start_date: search.startDate,
 		end_date: search.endDate,
 		UserId: search.id
+	}).catch(function (reason) {
+		// if an errhandler was passed run it
+		if (errorHandler) { errorHandler(reason); }
 	});
 }
 
