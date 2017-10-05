@@ -14,13 +14,6 @@ $(document).ready(function () {
     $("#login-modal").modal();
     $("#validate-modal").modal();
     $(".carousel").carousel();
-    $('.carousel.carousel-slider').carousel({fullWidth: true});
-
-    //Flip function of each card
-    $(".card").flip({
-        axis: 'y',
-        trigger: 'hover',
-    });
 
     // build date slider (from noUISlider)
     noUiSlider.create(dateSlider, {
@@ -56,21 +49,14 @@ $(document).ready(function () {
 
         event.preventDefault();
 
-        $("#carousel").hide();
-
         // if (loggedIn) {
 
             if($("#location-btn").text() === "CA" && $("#distance-btn").text() === "Marathon") { 
 
                 let raceQuery = {};
-                let runningMan = $("<img>");
 
-                runningMan.attr({
-                    "id": "running-man",
-                    "src": "assets/images/running.gif",
-                    "height": "250px;"});
-        
-                $("#jumbotron").append(runningMan);
+                $("#carousel").hide();
+                $("#running-man").show();
 
                 raceQuery.state = "CA";
                 raceQuery.startDate = $("#event-start").text();
@@ -90,12 +76,37 @@ $(document).ready(function () {
                         // loop through all races received and add to html
                         for(let i = 0; i < data.length; i++) {
 
-                            // $("#carousel-item-" + i).attr("href", data[i].url);
-                            // $("#card-img-" + i).attr("src", "assets/images/thumbs/" + imageFilenames[i]);
-                            // $("#card-title-" + i).text(data[i].name);
+                            // create the front of the card
+                            let cardFront = $("<div>");
+                            cardFront.addClass("front");
 
-                            let raceNameP = $("<p>");
-                            raceNameP.html("<b>" + data[i].name + "</b>");
+                            let cardCard = $("<div>");
+                            cardCard.addClass("card");
+
+                            cardFront.append(cardCard);
+
+                            cardImgDiv = $("<div>");
+                            cardImgDiv.addClass("card-image");
+
+                            cardCard.append(cardImgDiv);
+
+                            let cardImg = $("<img>");
+                            cardImg.addClass("results-img");
+                            cardImg.attr("src", "assets/images/thumbs/" + imageFilenames[i]);
+                            cardImgDiv.append(cardImg);
+
+                            let cardSpan = $("<span>");
+                            cardSpan.addClass("card-title");
+                            cardSpan.text(data[i].name);
+
+                            cardImgDiv.append(cardImg, cardSpan);
+
+                            // create the back of the card
+                            let cardBack = $("<div>");
+                            cardBack.addClass("back");
+
+                            // let raceNameP = $("<p>");
+                            // raceNameP.html("<b>" + data[i].name + "</b>");
                             
                             let raceCityStateP = $("<p>");
                             raceCityStateP.text(data[i].city + ", " + data[i].state);
@@ -108,29 +119,35 @@ $(document).ready(function () {
     
                             let raceURLP = $("<p>");
     
-                            if(data[i].url) {
+                            // if(data[i].url) {
     
-                                let raceURLA = $("<a>");
-                                raceURLA.text(data[i].url);
-                                raceURLA.attr({ "href": data[i].url, "target": "_blank" });
-                                raceURLP.append(raceURLA);
-                            }
+                            //     let raceURLA = $("<a>");
+                            //     raceURLA.text(data[i].url);
+                            //     raceURLA.attr({ "href": data[i].url, "target": "_blank" });
+                            //     raceURLP.append(raceURLA);
+                            // }
                             
-                            else {
-                                raceURLP.text("Website URL Unavailable");
-                            }
+                            // else {
+                            //     raceURLP.text("Website URL Unavailable");
+                            // }
     
-                            let raceDiv = $("<div>");
-                            raceDiv.addClass("race-result-div");
-                            raceDiv.append( raceNameP, raceCityStateP, raceDateP, raceTempP, raceURLP);
-    
-                            $("#races-container").append(raceDiv);
+                            cardBack.append(raceCityStateP, raceDateP, raceTempP);
+
+                            resultsCard = $("<div>");
+                            resultsCard.addClass("results-card");
+                            resultsCard.append(cardFront, cardBack);
+
+                            resultsLink = $("<a>");
+                            resultsLink.attr({ "href": data[i].url, "target": "_blank" });
+
+                            resultsLink.append(resultsCard);
+
+                            $("#races-container").append(resultsLink);
                             $("#results-modal").modal("open");
-                            }
+                        }
 
-                            // $("#running-man").hide();
-                            // $("#carousel").show();
-
+                        $("#running-man").hide();
+                        $("#carousel").show();
     
                     }).fail(function() {
     
@@ -229,4 +246,17 @@ $("#marathon").click(function () {
 $("#CA").click(function () {
 
     $("#location-btn").text("CA");
+});
+
+//Flip function of each card
+// $(".results-card").flip({
+//     axis: 'y',
+//     trigger: 'hover',
+// });
+
+$.initialize(".results-card", function() {
+	$(".results-card").flip({
+        axis: 'y',
+        trigger: 'hover'
+    });
 });

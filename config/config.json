@@ -1,0 +1,20 @@
+{
+  "development": {
+    "username": "root",
+    "password": "mstange22",
+    "database": "race_finder",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "race_finder",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "use-env-variable": "JAWSDB_URL",
+    "dialect": "mysql"
+  }
+}
