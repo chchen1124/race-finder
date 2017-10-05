@@ -239,24 +239,19 @@ function formatDate(date) {
 $("#marathon").click(function () {
 
     $("#distance-btn").text("Marathon");
+    $("#distance-btn").toggleClass('active');
 });
 
-// click listenere for CA drop-down option
+// click listener for CA drop-down option
 // changes text on button to "CA"
 $("#CA").click(function () {
 
-    $("#location-btn").text("CA");
+    $("#location-btn").text("CA")
+    $("#location-btn").toggleClass('focus');
 });
-
-//Flip function of each card
-// $(".results-card").flip({
-//     axis: 'y',
-//     trigger: 'hover',
-// });
 
 $.initialize(".results-card", function() {
 	$(".results-card").flip({
         axis: 'y',
         trigger: 'hover'
-    });
 });

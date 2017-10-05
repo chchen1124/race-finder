@@ -1,6 +1,6 @@
-// *********************************************************************************
+// ******************************************************************************
 // races.js - Container for race model.
-// *********************************************************************************
+// ******************************************************************************
 
 // Creates a "Race" model that matches up with DB
 module.exports = function(sequelize, DataTypes) {
@@ -16,10 +16,13 @@ module.exports = function(sequelize, DataTypes) {
 		url: { type: DataTypes.STRING },
 
 		// date of the race if available
-		race_date:{ type: DataTypes.DATEONLY },
+		race_date: { type: DataTypes.DATEONLY },
 
 		// normal daily everage temperature historically (null if data unavailable)
-		avg_temp:{ type: DataTypes.DOUBLE }
+		avg_temp: { type: DataTypes.DOUBLE },
+
+		// name of thumbnail image to display for this race
+		thumbnail: { type: DataTypes.STRING }
 	});
 
 	// Associate the race with a location
