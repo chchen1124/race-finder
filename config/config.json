@@ -1,7 +1,7 @@
 {
     "development": {
       "username": "root",
-      "password": "",
+      "password": "mstange22",
       "database": "race_finder",
       "host": "127.0.0.1",
       "dialect": "mysql",

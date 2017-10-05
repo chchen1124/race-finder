@@ -90,46 +90,47 @@ $(document).ready(function () {
                         // loop through all races received and add to html
                         for(let i = 0; i < data.length; i++) {
 
-                            $("#carousel-item-" + i).attr("href", data[i].url);
-                            $("#card-img-" + i).attr("src", "assets/images/thumbs/" + imageFilenames[i]);
-                            $("#card-title-" + i).text(data[i].name);
+                            // $("#carousel-item-" + i).attr("href", data[i].url);
+                            // $("#card-img-" + i).attr("src", "assets/images/thumbs/" + imageFilenames[i]);
+                            // $("#card-title-" + i).text(data[i].name);
 
-                            // let raceNameP = $("<p>");
-                            // raceNameP.html("<b>" + data[i].name + "</b>");
+                            let raceNameP = $("<p>");
+                            raceNameP.html("<b>" + data[i].name + "</b>");
                             
-                            // let raceCityStateP = $("<p>");
-                            // raceCityStateP.text(data[i].city + ", " + data[i].state);
+                            let raceCityStateP = $("<p>");
+                            raceCityStateP.text(data[i].city + ", " + data[i].state);
     
-                            // let raceDateP = $("<p>");
-                            // raceDateP.text(data[i].date);
+                            let raceDateP = $("<p>");
+                            raceDateP.text(data[i].date);
     
-                            // let raceTempP = $("<p>");
-                            // raceTempP.html(data[i].temp + "&deg;");
+                            let raceTempP = $("<p>");
+                            raceTempP.html(data[i].temp + "&deg;");
     
-                            // let raceURLP = $("<p>");
+                            let raceURLP = $("<p>");
     
-                            // if(data[i].url) {
+                            if(data[i].url) {
     
-                            //     let raceURLA = $("<a>");
-                            //     raceURLA.text(data[i].url);
-                            //     raceURLA.attr({ "href": data[i].url, "target": "_blank" });
-                            //     raceURLP.append(raceURLA);
-                            // }
+                                let raceURLA = $("<a>");
+                                raceURLA.text(data[i].url);
+                                raceURLA.attr({ "href": data[i].url, "target": "_blank" });
+                                raceURLP.append(raceURLA);
+                            }
                             
-                            // else {
-                            //     raceURLP.text("Website URL Unavailable");
-                            // }
+                            else {
+                                raceURLP.text("Website URL Unavailable");
+                            }
     
-                            // let raceDiv = $("<div>");
-                            // raceDiv.addClass("race-result-div");
-                            // raceDiv.append( raceNameP, raceCityStateP, raceDateP, raceTempP, raceURLP);
+                            let raceDiv = $("<div>");
+                            raceDiv.addClass("race-result-div");
+                            raceDiv.append( raceNameP, raceCityStateP, raceDateP, raceTempP, raceURLP);
     
-                            // $("#races-container").append(raceDiv);
-                            // $("#results-modal").modal("open");
+                            $("#races-container").append(raceDiv);
+                            $("#results-modal").modal("open");
+                            }
 
-                            $("#running-man").hide();
-                            $("#carousel").show();
-                        }
+                            // $("#running-man").hide();
+                            // $("#carousel").show();
+
     
                     }).fail(function() {
     
