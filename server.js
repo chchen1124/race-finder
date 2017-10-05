@@ -8,6 +8,15 @@ const Exphbs = require("express-handlebars");
 let app = Express();
 let PORT = process.env.PORT || 8080;
 
+// Handles unexpected server errors
+function handleUnexpectedErr (err, req, res, next) {
+	if (req.xhr) {
+		res.status(500).send( { error: 'Something failed!' } );
+	} else {
+		next(err);
+	}
+}
+
 // require models
 const DB = require("./models");
 
@@ -24,6 +33,9 @@ app.set("view engine", "handlebars");
 
 // connect routes
 require("./controllers/api-routes-races")(app);
+
+// use error handlers
+app.use(handleUnexpectedErr);
 
 // sync the database and start server listening
 DB.sequelize.sync().then(() => {
