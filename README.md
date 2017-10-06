@@ -30,6 +30,9 @@ If you find a bug, kindly open an issue [here](https://github.com/race-finder/ra
 
 If you would like to request a new feature or enhancement, feel free to do so by opening an issue [here](https://github.com/race-finder/race-finder/issues/new). Please give a detailed description (images are always helpful) of the feature/enhancement that you would like to see.
 
+## Testing
+For a simplistic integration test using the Mocha framework, run $`npm test`. (Unit testing has not been fully developed yet.)
+
 ## Built With
 * [MySql](https://www.mysql.com/)
 * [NodeJS](https://nodejs.org/en/)
