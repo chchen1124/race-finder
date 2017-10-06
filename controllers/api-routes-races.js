@@ -122,11 +122,21 @@ function addSearchToDB(search, res, errorHandler) {
 // buildArrayOfRaces takes in the search results array and a callback
 // to execute when recursive weather calls are complete
 function buildArrayOfRaces(data, callback) {
+	const thumbnailPath = "assets/images/thumbs/";
+	const defaultThumbFile = "";
+	let thumbFile;
 				
 	if(index < data.length && index < 5) {
 		
 		// wrap db date with moment object
 		let mDate = Moment(data[index].race_date, "YYYY-MM-DD");
+		
+		// get the thumbnail if it exists
+		if (data[index].thumbnail.length > 0) {
+			thumbFile = thumbnailPath + data[index].thumbnail;
+		} else {
+			thumbFile = defaultThumbFile;
+		}
 	
 		racesToReturn.push({
 			city: data[index].Location.city,
@@ -135,7 +145,7 @@ function buildArrayOfRaces(data, callback) {
 			temp: data[index].avg_temp,
 			url: data[index].url,
 			date: mDate.format("M/D/YYYY"),
-			thumbnail: data[index].thumbnail
+			thumb: thumbFile,
 		});
 
 		// if the avg_temp is null, get the temperature data
