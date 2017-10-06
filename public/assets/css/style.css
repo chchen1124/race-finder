@@ -206,9 +206,15 @@ box-shadow: 0 1px 0 0 #000;
 	border-radius: 4px;
 }
 
-.carousel-modal-city-state {
+.carousel-modal-date {
+  margin-top: 0px;
 	margin-bottom: 0px;
 	padding-top: 4px;
+}
+.carousel-modal-city-state {
+  margin-top: 0px;
+	margin-bottom: 0px;
+	/* padding-top: 4px; */
 }
 
 .carousel-modal-temp {
