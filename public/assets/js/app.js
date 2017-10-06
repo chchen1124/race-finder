@@ -92,7 +92,7 @@ $(document).ready(function () {
 
                         let cardImg = $("<img>");
                         cardImg.addClass("results-img");
-                        cardImg.attr("src", "assets/images/thumbs/" + data[i].thumbnail);
+                        cardImg.attr("src", data[i].thumb);
                         cardImgDiv.append(cardImg);
 
                         let cardSpan = $("<span>");
@@ -135,7 +135,7 @@ $(document).ready(function () {
                         // $("#results-modal").modal("open");
 
                         $("#carousel-item-" + i).attr("href", data[i].url);
-                        $("#card-img-" + i).attr("src", "assets/images/thumbs/" + data[i].thumbnail);
+                        $("#card-img-" + i).attr("src", data[i].thumb);
                         $("#card-title-" + i).text(data[i].name);
                     }
 
@@ -247,3 +247,4 @@ $.initialize(".results-card", function () {
         trigger: 'hover'
     });
 });
+
