@@ -158,7 +158,7 @@ box-shadow: 0 1px 0 0 #000;
 #location-btn,
 #distance-btn {
 
-  padding-right: 15px;
+  padding-right: 30px;
 
 }
 
@@ -172,35 +172,23 @@ box-shadow: 0 1px 0 0 #000;
   height: 250px;
 }
 
-.results-card {
+/* .results-card {
   width: 250px;
   height: 250px;
-}
+} */
 
 .back {
-  padding: 50px;
+  padding: 30px;
   color: black;
+  border: 1px solid black;
 }
 
-#results-modal-container {
-  position: relative;
-  margin: 0 auto;
-  max-width: 95%;
-  width: 960px;
-}
-
-.results-img {
+/* .results-img {
   max-width: 250px;
   max-height:250px;
-  margin-bottom: 40px;
-}
+} */
 
-#races-container {
+/* #races-container {
   margin: 0 auto;
   width: 250px;
-}
-
-#results-carousel {
-  display: none;
-}
-=======
+} */
