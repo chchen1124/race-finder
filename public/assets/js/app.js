@@ -69,7 +69,8 @@ $(document).ready(function () {
 
                     console.log(data);
 
-                    data.sort(tempCompare);
+                    // sort incoming races by temp
+                    data.sort(function(a, b) { return a.temp - b.temp });
 
                     console.log(data);
 
@@ -88,15 +89,17 @@ $(document).ready(function () {
                         $("#carousel-modal-date-" + i).text(data[i].date);
                         $("#carousel-modal-city-state-" + i).text(data[i].city + ", " + data[i].state);
                         $("#carousel-modal-temp-" + i).html(data[i].temp + "&deg;");
-                    }
 
-                    $("#running-man").hide();
-                    $("#carousel").show();
-
+                        $("#running-man").hide();
+                        $(".carousel").carousel("set", 0);
+                        $("#carousel").show();
+                    }        
                 }).fail(function () {
 
                     $("#races-container").html("There are no races for your search");
+                    $("#running-man").hide();
                     $("#results-modal").modal("open");
+                    $("#carousel").show();
                 });
             }, 1000);
         }
@@ -201,20 +204,10 @@ $.initialize(".results-card", function () {
 
 $(".carousel-item").on("mouseenter", function() {
 
-    // $("#carousel-modal-0").show();
     $(this).find(".card-modal").show();
 });
 
 $(".carousel-item").on("mouseleave", function() {
-    // $("#carousel-modal-0").hide();
+
     $(this).find(".card-modal").hide();
 })
-
-// helper function for sort
-function tempCompare(a,b) {
-    if (a.temp < b.temp)
-      return -1;
-    if (a.temp > b.temp)
-      return 1;
-    return 0;
-  }
