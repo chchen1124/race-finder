@@ -195,6 +195,23 @@ box-shadow: 0 1px 0 0 #000;
 } */
 
 .card-modal {
+	position: relative;
+	top: -245px;
+	display: none;
+	margin: 0 auto;
+	min-width: 150px;
+	max-width: 80%;
+	background-color: black;
+	color: white;
+	border-radius: 4px;
+}
 
-  width: 100px;
+.carousel-modal-city-state {
+	margin-bottom: 0px;
+	padding-top: 4px;
+}
+
+.carousel-modal-temp {
+	margin-top: 0px;
+	padding-bottom: 4px;
 }
