@@ -14,8 +14,6 @@ $(document).ready(function () {
     $("#login-modal").modal();
     $("#validate-modal").modal();
     $(".carousel").carousel();
-    $('.carousel.carousel-slider').carousel({fullWidth: true});
-
 
     // build date slider (from noUISlider)
     noUiSlider.create(dateSlider, {
@@ -47,109 +45,133 @@ $(document).ready(function () {
     });
 
     // race search submit button listener 
-    $("#race-submit-btn").click(function(event) {
+    $("#race-submit-btn").click(function (event) {
 
         event.preventDefault();
 
-        $("#carousel").hide();
-
         // if (loggedIn) {
 
-            if($("#location-btn").text() === "CA" && $("#distance-btn").text() === "Marathon") { 
+        if ($("#location-btn").text() === "CA" && $("#distance-btn").text() === "Marathon") {
 
-                let raceQuery = {};
-                let runningMan = $("<img>");
+            let raceQuery = {};
 
-                runningMan.attr({
-                    "id": "running-man",
-                    "src": "assets/images/running.gif",
-                    "height": "250px;"});
-        
-                $("#jumbotron").append(runningMan);
+            $("#carousel").hide();
+            $("#running-man").show();
 
-                raceQuery.state = "CA";
-                raceQuery.startDate = $("#event-start").text();
-                raceQuery.endDate = $("#event-end").text();
-                raceQuery.id = user.id;
-                raceQuery.username = user.username;
+            raceQuery.state = "CA";
+            raceQuery.startDate = $("#event-start").text();
+            raceQuery.endDate = $("#event-end").text();
+            raceQuery.id = user.id;
+            raceQuery.username = user.username;
 
-                setTimeout(function() {
+            setTimeout(function () {
 
-                    $.post("/", raceQuery, function (data) {
-                        
-                        console.log(data);
-    
-                        $("#results-header").text("Your Races (" + data.length + ")");
-                        $("#races-container").empty();
-    
-                        // loop through all races received and add to html
-                        for(let i = 0; i < data.length; i++) {
+                $.post("/", raceQuery, function (data) {
 
-                            // $("#carousel-item-" + i).attr("href", data[i].url);
-                            // $("#card-img-" + i).attr("src", "assets/images/thumbs/" + imageFilenames[i]);
-                            // $("#card-title-" + i).text(data[i].name);
+                    console.log(data);
 
-                            let raceNameP = $("<p>");
-                            raceNameP.html("<b>" + data[i].name + "</b>");
-                            
-                            let raceCityStateP = $("<p>");
-                            raceCityStateP.text(data[i].city + ", " + data[i].state);
-    
-                            let raceDateP = $("<p>");
-                            raceDateP.text(data[i].date);
-    
-                            let raceTempP = $("<p>");
-                            raceTempP.html(data[i].temp + "&deg;");
-    
-                            let raceURLP = $("<p>");
-    
-                            if(data[i].url) {
-    
-                                let raceURLA = $("<a>");
-                                raceURLA.text(data[i].url);
-                                raceURLA.attr({ "href": data[i].url, "target": "_blank" });
-                                raceURLP.append(raceURLA);
-                            }
-                            
-                            else {
-                                raceURLP.text("Website URL Unavailable");
-                            }
-    
-                            let raceDiv = $("<div>");
-                            raceDiv.addClass("race-result-div");
-                            raceDiv.append( raceNameP, raceCityStateP, raceDateP, raceTempP, raceURLP);
-    
-                            $("#races-container").append(raceDiv);
-                            $("#results-modal").modal("open");
-                            }
+                    $("#results-header").text("Your Races (" + data.length + ")");
+                    $("#races-container").empty();
 
-                            // $("#running-man").hide();
-                            // $("#carousel").show();
+                    // loop through all races received and add to html
+                    for (let i = 0; i < data.length; i++) {
 
-    
-                    }).fail(function() {
-    
-                        $("#races-container").html("There are no races for your search");
+                        // create the front of the card
+                        let cardFront = $("<div>");
+                        cardFront.addClass("front");
+
+                        let cardCard = $("<div>");
+                        cardCard.addClass("card");
+
+                        cardFront.append(cardCard);
+
+                        cardImgDiv = $("<div>");
+                        cardImgDiv.addClass("card-image");
+
+                        cardCard.append(cardImgDiv);
+
+                        let cardImg = $("<img>");
+                        cardImg.addClass("results-img");
+                        cardImg.attr("src", "assets/images/thumbs/" + imageFilenames[i]);
+                        cardImgDiv.append(cardImg);
+
+                        let cardSpan = $("<span>");
+                        cardSpan.addClass("card-title");
+                        cardSpan.text(data[i].name);
+
+                        cardImgDiv.append(cardImg, cardSpan);
+
+                        // create the back of the card
+                        let cardBack = $("<div>");
+                        cardBack.addClass("back");
+
+                        // let raceNameP = $("<p>");
+                        // raceNameP.html("<b>" + data[i].name + "</b>");
+
+                        let raceCityStateP = $("<p>");
+                        raceCityStateP.text(data[i].city + ", " + data[i].state);
+
+                        let raceDateP = $("<p>");
+                        raceDateP.text(data[i].date);
+
+                        let raceTempP = $("<p>");
+                        raceTempP.html(data[i].temp + "&deg;");
+
+                        let raceURLP = $("<p>");
+
+                        // if(data[i].url) {
+
+                        //     let raceURLA = $("<a>");
+                        //     raceURLA.text(data[i].url);
+                        //     raceURLA.attr({ "href": data[i].url, "target": "_blank" });
+                        //     raceURLP.append(raceURLA);
+                        // }
+
+                        // else {
+                        //     raceURLP.text("Website URL Unavailable");
+                        // }
+
+                        cardBack.append(raceCityStateP, raceDateP, raceTempP);
+
+                        resultsCard = $("<div>");
+                        resultsCard.addClass("results-card");
+                        resultsCard.append(cardFront, cardBack);
+
+                        resultsLink = $("<a>");
+                        resultsLink.attr({ "href": data[i].url, "target": "_blank" });
+
+                        resultsLink.append(resultsCard);
+
+                        $("#races-container").append(resultsLink);
                         $("#results-modal").modal("open");
-                    });
-                }, 1000);
+                    }
+
+                    $("#running-man").hide();
+                    $("#carousel").show();
+
+                }).fail(function () {
+
+                    $("#races-container").html("There are no races for your search");
+                    $("#results-modal").modal("open");
+                });
+            }, 1000);
+        }
+
+        else {
+
+            if ($("#location-btn").text() !== "CA") {
+
+                $("#validate-error-message").text("Please select a state");
+                $("#validate-modal").modal("open");
             }
 
             else {
 
-                if ($("#location-btn").text() !== "CA" ) {
-
-                    $("#validate-error-message").text("Please select a state");
-                    $("#validate-modal").modal("open");
-                }
-
-                else {
-
-                    $("#validate-error-message").text("Please select a race distance");
-                    $("#validate-modal").modal("open");
-                }
+                $("#validate-error-message").text("Please select a race distance");
+                $("#validate-modal").modal("open");
             }
-                
+        }
+
         // }
 
         // not logged in
@@ -159,11 +181,11 @@ $(document).ready(function () {
 
     });
 
-    $("#login").click(function() {
+    $("#login").click(function () {
 
-        if(!loggedIn) {
+        if (!loggedIn) {
             $("#login-modal").modal("open");
-            $("#race-submit-button").addClass("scale-in");   
+            $("#race-submit-button").addClass("scale-in");
         }
 
         else {
@@ -174,13 +196,13 @@ $(document).ready(function () {
     });
 });
 
-$("#user-submit-btn").click(function(event) {
+$("#user-submit-btn").click(function (event) {
 
     event.preventDefault();
 
     let newUser = {};
 
-    if($("#user-name").val().trim()) {
+    if ($("#user-name").val().trim()) {
 
         newUser.username = $("#user-name").val().trim();
         $("#user-name").val("");
@@ -218,13 +240,19 @@ $("#marathon").click(function () {
 
     $("#distance-btn").text("Marathon");
     $("#distance-btn").toggleClass('active');
-
 });
 
-// click listenere for CA drop-down option
+// click listener for CA drop-down option
 // changes text on button to "CA"
 $("#CA").click(function () {
 
-    $("#location-btn").text("CA");
+    $("#location-btn").text("CA")
     $("#location-btn").toggleClass('focus');
+});
+
+$.initialize(".results-card", function () {
+    $(".results-card").flip({
+        axis: 'y',
+        trigger: 'hover'
+    });
 });

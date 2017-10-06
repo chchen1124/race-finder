@@ -4,7 +4,7 @@ body {
 }
 
 #login-container {
-    margin-top: 5px;
+  margin-top: 5px;
 	text-align: right;
 	color: #1976d2;
 }
@@ -167,3 +167,40 @@ box-shadow: 0 1px 0 0 #000;
   padding-right: 80px;
 }
 
+#running-man {
+  display: none;
+  height: 250px;
+}
+
+.results-card {
+  width: 250px;
+  height: 250px;
+}
+
+.back {
+  padding: 50px;
+  color: black;
+}
+
+#results-modal-container {
+  position: relative;
+  margin: 0 auto;
+  max-width: 95%;
+  width: 960px;
+}
+
+.results-img {
+  max-width: 250px;
+  max-height:250px;
+  margin-bottom: 40px;
+}
+
+#races-container {
+  margin: 0 auto;
+  width: 250px;
+}
+
+#results-carousel {
+  display: none;
+}
+=======
