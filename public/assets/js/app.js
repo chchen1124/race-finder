@@ -76,67 +76,17 @@ $(document).ready(function () {
                     // loop through all races received and add to html
                     for (let i = 0; i < data.length; i++) {
 
-                        // create the front of the card
-                        let cardFront = $("<div>");
-                        cardFront.addClass("front");
-
-                        let cardCard = $("<div>");
-                        cardCard.addClass("card");
-
-                        cardFront.append(cardCard);
-
-                        cardImgDiv = $("<div>");
-                        cardImgDiv.addClass("card-image");
-
-                        cardCard.append(cardImgDiv);
-
-                        let cardImg = $("<img>");
-                        cardImg.addClass("results-img");
-                        cardImg.attr("src", data[i].thumb);
-                        cardImgDiv.append(cardImg);
-
-                        let cardSpan = $("<span>");
-                        cardSpan.addClass("card-title");
-                        cardSpan.text(data[i].name);
-
-                        cardImgDiv.append(cardImg, cardSpan);
-
-                        // create the back of the card
-                        let cardBack = $("<div>");
-                        cardBack.addClass("back");
-
-                        let raceNameP = $("<p>");
-                        raceNameP.html("<b>" + data[i].name + "</b>");
-
-                        let raceCityStateP = $("<p>");
-                        raceCityStateP.text(data[i].city + ", " + data[i].state);
-
-                        let raceDateP = $("<p>");
-                        raceDateP.text(data[i].date);
-
-                        let raceTempP = $("<p>");
-                        raceTempP.html(data[i].temp + "&deg;");
-
-                        let raceURLP = $("<p>");
-
-                        cardBack.append(raceNameP, raceCityStateP, raceDateP, raceTempP);
-
-                        resultsCard = $("<div>");
-                        resultsCard.addClass("results-card");
-                        resultsCard.append(cardFront, cardBack);
-
-                        resultsLink = $("<a>");
-                        resultsLink.addClass("results-link")
-                        resultsLink.attr({ "href": data[i].url, "target": "_blank" });
-
-                        resultsLink.append(resultsCard);
-
-                        $("#races-container").append(resultsLink);
-                        // $("#results-modal").modal("open");
-
                         $("#carousel-item-" + i).attr("href", data[i].url);
                         $("#card-img-" + i).attr("src", data[i].thumb);
                         $("#card-title-" + i).text(data[i].name);
+
+    //      <div id="carousel-modal-0" class="card-modal">
+    //          <p id="carousel-modal-city-state-0" class="carousel-modal-city-state">Carmel, CA</p>
+    //          <p id="carousel-modal-temp-0" class="carousel-modal-temp">70.0&deg;</p>
+    //      </div>
+
+                        $("#carousel-modal-city-state-" + i).text(data[i].city + ", " + data[i].state);
+                        $("#carousel-modal-temp-" + i).html(data[i].temp + "&deg;");
                     }
 
                     $("#running-man").hide();
@@ -248,3 +198,13 @@ $.initialize(".results-card", function () {
     });
 });
 
+$(".carousel-item").on("mouseenter", function() {
+
+    // $("#carousel-modal-0").show();
+    $(this).find(".card-modal").show();
+});
+
+$(".carousel-item").on("mouseleave", function() {
+    // $("#carousel-modal-0").hide();
+    $(this).find(".card-modal").hide();
+})
