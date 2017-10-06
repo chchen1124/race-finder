@@ -5,7 +5,6 @@ let dateSlider = document.getElementById("slider-date");
 
 let loggedIn = false;
 let user = "";
-// let imageFilenames = ["ave-giants.jpg", "bakersfield.jpg", "big-sur.jpg", "bizz-johnson.jpg", "california-international.jpg"];
 
 $(document).ready(function () {
 
