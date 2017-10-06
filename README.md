@@ -6,13 +6,13 @@ A web application to help match runners with races with a focus on simple, easy 
 Start using the application: https://race-finder.herokuapp.com/
 
 ### Log In to Remember Your Searches
-<img src="./extra/login.jpg" width=400>
+![login modal](/extra/login.jpg)
 
 ### Set Your Search Criteria
-<img src="./extra/criteria.jpg" width=400>
+![search form](/extra/criteria.jpg)
 
 ### Browse Race Carousel
-<img src="./extra/carousel.jpg" width=400>
+![carousel of race thumbnails](/extra/carousel.jpg)
 
 ## Contribute
 * Fork the repo (https://github.com/race-finder/race-finder)
