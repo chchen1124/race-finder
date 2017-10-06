@@ -69,6 +69,10 @@ $(document).ready(function () {
 
                     console.log(data);
 
+                    data.sort(tempCompare);
+
+                    console.log(data);
+
                     $("#results-header").text("Your Races (" + data.length + ")");
                     $("#races-container").empty();
 
@@ -205,3 +209,12 @@ $(".carousel-item").on("mouseleave", function() {
     // $("#carousel-modal-0").hide();
     $(this).find(".card-modal").hide();
 })
+
+// helper function for sort
+function tempCompare(a,b) {
+    if (a.temp < b.temp)
+      return -1;
+    if (a.temp > b.temp)
+      return 1;
+    return 0;
+  }
