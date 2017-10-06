@@ -66,6 +66,7 @@ module.exports = function(app) {
 				return res.status(404).send("No matching races found.");
 			}
 			
+			// reset array & races
 			racesToReturn = [];
 			index = 0;
 
@@ -113,7 +114,7 @@ function addSearchToDB(search, res, errorHandler) {
 		end_date: search.endDate,
 		UserId: search.id
 	}).catch(function (reason) {
-		// if an errhandler was passed run it
+		// if an errorHandler was passed run it
 		if (errorHandler) { errorHandler(reason); }
 	});
 }
