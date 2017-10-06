@@ -14,6 +14,7 @@ $(document).ready(function () {
     $("#login-modal").modal();
     $("#validate-modal").modal();
     $(".carousel").carousel();
+    $('.tooltipped').tooltip({delay: 50, html: true});
 
     // build date slider (from noUISlider)
     noUiSlider.create(dateSlider, {
@@ -76,65 +77,13 @@ $(document).ready(function () {
                     // loop through all races received and add to html
                     for (let i = 0; i < data.length; i++) {
 
-                        // create the front of the card
-                        let cardFront = $("<div>");
-                        cardFront.addClass("front");
+                        let dataTooltipString = data[i].city + ", " + data[i].state + " - " + data[i].temp + "&deg;";
 
-                        let cardCard = $("<div>");
-                        cardCard.addClass("card");
-
-                        cardFront.append(cardCard);
-
-                        cardImgDiv = $("<div>");
-                        cardImgDiv.addClass("card-image");
-
-                        cardCard.append(cardImgDiv);
-
-                        let cardImg = $("<img>");
-                        cardImg.addClass("results-img");
-                        cardImg.attr("src", data[i].thumb);
-                        cardImgDiv.append(cardImg);
-
-                        let cardSpan = $("<span>");
-                        cardSpan.addClass("card-title");
-                        cardSpan.text(data[i].name);
-
-                        cardImgDiv.append(cardImg, cardSpan);
-
-                        // create the back of the card
-                        let cardBack = $("<div>");
-                        cardBack.addClass("back");
-
-                        let raceNameP = $("<p>");
-                        raceNameP.html("<b>" + data[i].name + "</b>");
-
-                        let raceCityStateP = $("<p>");
-                        raceCityStateP.text(data[i].city + ", " + data[i].state);
-
-                        let raceDateP = $("<p>");
-                        raceDateP.text(data[i].date);
-
-                        let raceTempP = $("<p>");
-                        raceTempP.html(data[i].temp + "&deg;");
-
-                        let raceURLP = $("<p>");
-
-                        cardBack.append(raceNameP, raceCityStateP, raceDateP, raceTempP);
-
-                        resultsCard = $("<div>");
-                        resultsCard.addClass("results-card");
-                        resultsCard.append(cardFront, cardBack);
-
-                        resultsLink = $("<a>");
-                        resultsLink.addClass("results-link")
-                        resultsLink.attr({ "href": data[i].url, "target": "_blank" });
-
-                        resultsLink.append(resultsCard);
-
-                        $("#races-container").append(resultsLink);
-                        // $("#results-modal").modal("open");
+    // <a id="carousel-item-0" class="carousel-item tooltipped" data-position="top" data-delay="50"
+    // href="http://www.bsim.org/site3.aspx" data-tooltip="Carmel, CA - 70.0&deg;" target="_blank">
 
                         $("#carousel-item-" + i).attr("href", data[i].url);
+                        $("#carousel-item-" + i).data("tooltip", dataTooltipString);
                         $("#card-img-" + i).attr("src", data[i].thumb);
                         $("#card-title-" + i).text(data[i].name);
                     }
@@ -248,3 +197,10 @@ $.initialize(".results-card", function () {
     });
 });
 
+$(".carousel-item").on("hover", function() {
+    $(this).find(".card-modal").show();
+});
+
+$(".carousel-item").on("mouseleave", function() {
+    $(this).find(".card-modal").hide();
+})
