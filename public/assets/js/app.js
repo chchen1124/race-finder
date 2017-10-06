@@ -75,15 +75,13 @@ $(document).ready(function () {
                     // loop through all races received and add to html
                     for (let i = 0; i < data.length; i++) {
 
+                        // populate image and text
                         $("#carousel-item-" + i).attr("href", data[i].url);
                         $("#card-img-" + i).attr("src", data[i].thumb);
                         $("#card-title-" + i).text(data[i].name);
 
-    //      <div id="carousel-modal-0" class="card-modal">
-    //          <p id="carousel-modal-city-state-0" class="carousel-modal-city-state">Carmel, CA</p>
-    //          <p id="carousel-modal-temp-0" class="carousel-modal-temp">70.0&deg;</p>
-    //      </div>
-
+                        // populate pop-up dialog fields
+                        $("#carousel-modal-date-" + i).text(data[i].date);
                         $("#carousel-modal-city-state-" + i).text(data[i].city + ", " + data[i].state);
                         $("#carousel-modal-temp-" + i).html(data[i].temp + "&deg;");
                     }
