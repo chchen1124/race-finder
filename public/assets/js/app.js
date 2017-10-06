@@ -5,7 +5,7 @@ let dateSlider = document.getElementById("slider-date");
 
 let loggedIn = false;
 let user = "";
-let imageFilenames = ["ave-giants.jpg", "bakersfield.jpg", "big-sur.jpg", "bizz-johnson.jpg", "cim.jpg"];
+// let imageFilenames = ["ave-giants.jpg", "bakersfield.jpg", "big-sur.jpg", "bizz-johnson.jpg", "california-international.jpg"];
 
 $(document).ready(function () {
 
@@ -51,7 +51,7 @@ $(document).ready(function () {
 
         // if (loggedIn) {
 
-        if ($("#location-btn").text() === "CA" && $("#distance-btn").text() === "Marathon") {
+        if ($("#location-btn").text().trim() === "CA" && $("#distance-btn").text().trim() === "Marathon") {
 
             let raceQuery = {};
 
@@ -92,7 +92,7 @@ $(document).ready(function () {
 
                         let cardImg = $("<img>");
                         cardImg.addClass("results-img");
-                        cardImg.attr("src", "assets/images/thumbs/" + imageFilenames[i]);
+                        cardImg.attr("src", "assets/images/thumbs/" + data[i].thumbnail);
                         cardImgDiv.append(cardImg);
 
                         let cardSpan = $("<span>");
@@ -105,8 +105,8 @@ $(document).ready(function () {
                         let cardBack = $("<div>");
                         cardBack.addClass("back");
 
-                        // let raceNameP = $("<p>");
-                        // raceNameP.html("<b>" + data[i].name + "</b>");
+                        let raceNameP = $("<p>");
+                        raceNameP.html("<b>" + data[i].name + "</b>");
 
                         let raceCityStateP = $("<p>");
                         raceCityStateP.text(data[i].city + ", " + data[i].state);
@@ -119,31 +119,24 @@ $(document).ready(function () {
 
                         let raceURLP = $("<p>");
 
-                        // if(data[i].url) {
-
-                        //     let raceURLA = $("<a>");
-                        //     raceURLA.text(data[i].url);
-                        //     raceURLA.attr({ "href": data[i].url, "target": "_blank" });
-                        //     raceURLP.append(raceURLA);
-                        // }
-
-                        // else {
-                        //     raceURLP.text("Website URL Unavailable");
-                        // }
-
-                        cardBack.append(raceCityStateP, raceDateP, raceTempP);
+                        cardBack.append(raceNameP, raceCityStateP, raceDateP, raceTempP);
 
                         resultsCard = $("<div>");
                         resultsCard.addClass("results-card");
                         resultsCard.append(cardFront, cardBack);
 
                         resultsLink = $("<a>");
+                        resultsLink.addClass("results-link")
                         resultsLink.attr({ "href": data[i].url, "target": "_blank" });
 
                         resultsLink.append(resultsCard);
 
                         $("#races-container").append(resultsLink);
-                        $("#results-modal").modal("open");
+                        // $("#results-modal").modal("open");
+
+                        $("#carousel-item-" + i).attr("href", data[i].url);
+                        $("#card-img-" + i).attr("src", "assets/images/thumbs/" + data[i].thumbnail);
+                        $("#card-title-" + i).text(data[i].name);
                     }
 
                     $("#running-man").hide();
@@ -159,7 +152,7 @@ $(document).ready(function () {
 
         else {
 
-            if ($("#location-btn").text() !== "CA") {
+            if ($("#location-btn").text().trim() !== "CA") {
 
                 $("#validate-error-message").text("Please select a state");
                 $("#validate-modal").modal("open");
@@ -238,16 +231,14 @@ function formatDate(date) {
 // changes text on button to "Marathon"
 $("#marathon").click(function () {
 
-    $("#distance-btn").text("Marathon");
-    $("#distance-btn").toggleClass('active');
+    $("#distance-btn").html(" &nbsp;&nbsp; Marathon &nbsp;&nbsp; ");
 });
 
 // click listener for CA drop-down option
 // changes text on button to "CA"
 $("#CA").click(function () {
 
-    $("#location-btn").text("CA")
-    $("#location-btn").toggleClass('focus');
+    $("#location-btn").html(" &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CA &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ");
 });
 
 $.initialize(".results-card", function () {
