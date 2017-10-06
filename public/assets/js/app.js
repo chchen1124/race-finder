@@ -129,7 +129,7 @@ $(document).ready(function () {
 
         if (!loggedIn) {
             $("#login-modal").modal("open");
-            $("#race-submit-button").addClass("scale-in");
+            // $("#race-submit-button").addClass("scale-in");
         }
 
         else {
@@ -162,7 +162,7 @@ $("#user-submit-btn").click(function (event) {
                 user.id = data.id;
                 loggedIn = true;
                 $("#user").text(user.username);
-                $("#login").text(" | Logout");
+                $("#login").html("&nbsp;| Logout");
             }
         });
     }
