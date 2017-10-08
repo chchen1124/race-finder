@@ -48,8 +48,6 @@ $(document).ready(function () {
 
         event.preventDefault();
 
-        // if (loggedIn) {
-
         if ($("#location-btn").text().trim() === "CA" && $("#distance-btn").text().trim() === "Marathon") {
 
             let raceQuery = {};
@@ -63,14 +61,9 @@ $(document).ready(function () {
             raceQuery.id = user.id;
             raceQuery.username = user.username;
 
-            console.log(raceQuery);
-
             setTimeout(function () {
 
                 $.post("/", raceQuery, function (data) {
-
-                    $("#results-header").text("Your Races (" + data.length + ")");
-                    $("#races-container").empty();
 
                     // loop through all races received and add to html
                     for (let i = 0; i < data.length; i++) {
@@ -113,13 +106,6 @@ $(document).ready(function () {
                 $("#validate-modal").modal("open");
             }
         }
-
-        // }
-
-        // not logged in
-        // else {
-        //     $("#login-modal").modal("open");
-        // }
 
     });
 
