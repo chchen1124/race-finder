@@ -9,7 +9,6 @@ let user = {};
 $(document).ready(function () {
 
     // initialize Materialize components
-    $("#results-modal").modal();
     $("#login-modal").modal();
     $("#validate-modal").modal();
     $(".carousel").carousel();
@@ -43,7 +42,7 @@ $(document).ready(function () {
         dateValues[handle].innerHTML = formatDate(new Date(+values[handle]));
     });
 
-    // race search submit button listener 
+    // listen for search button 
     $("#race-submit-btn").click(function (event) {
 
         event.preventDefault();
@@ -65,23 +64,13 @@ $(document).ready(function () {
 
                 $.post("/", raceQuery, function (data) {
 
-                    // loop through all races received and add to html
-                    for (let i = 0; i < data.length; i++) {
-
-                        // populate image and text
-                        $("#carousel-item-" + i).attr("href", data[i].url);
-                        $("#card-img-" + i).attr("src", data[i].thumb);
-                        $("#card-title-" + i).text(data[i].name);
-
-                        // populate pop-up dialog fields
-                        $("#carousel-modal-date-" + i).text(data[i].date);
-                        $("#carousel-modal-city-state-" + i).text(data[i].city + ", " + data[i].state);
-                        $("#carousel-modal-temp-" + i).html(data[i].temp + "&deg;");
-
-                        $("#running-man").hide();
-                        $(".carousel").carousel("set", 0);
-                        $("#carousel").show();
-                    }
+                    $("#carousel").empty();
+                    $(".carousel").carousel("destroy");
+                    loadCarousel(data);
+                    $("#running-man").hide();
+                    $("#carousel").show();
+                    $(".carousel").carousel();
+                    // $(".carousel").carousel("set", 0);
                 }).fail(function () {
 
                     $("#races-container").html("There are no races for your search");
@@ -109,6 +98,7 @@ $(document).ready(function () {
 
     });
 
+    // listen for login link
     $("#login").click(function () {
 
         if (!loggedIn) {
@@ -125,6 +115,84 @@ $(document).ready(function () {
     });
 });
 
+// load the carousel with new search results
+// receives an array of races
+function loadCarousel(races) {
+
+
+//    <div id="carousel" class="carousel">
+    let carousel = $("<div>");
+    carousel.addClass("carousel");
+    carousel.attr("id", "carousel");
+
+    // loop through all races returned from query, add to carousel
+    for (let i = 0; i < races.length; i++) {
+
+        addCarouselItem(races[i], i);
+    }
+}
+
+// adds one carousel item to the carousel
+function addCarouselItem(race, index) {
+
+    // build the Carousel Item and append to carousel
+    let newCarouselItem = $("<a>");
+    newCarouselItem.addClass("carousel-item");
+    newCarouselItem.attr({
+        "id": "carousel-item-" + index,
+        "href": race.url,
+        "target": "_blank"
+    });
+    $("#carousel").append(newCarouselItem);
+
+    // add the card
+    let newCard = $("<div>");
+    newCard.addClass("card");
+    newCarouselItem.append(newCard);
+
+    // add the image container
+    let newCardImageContainer = $("<div>");
+    newCardImageContainer.addClass("card-image");
+    newCard.append(newCardImageContainer);
+
+    // img
+    let newCardImg = $("<img>");
+    newCardImg.attr({
+        "id": "card-img-" + index,
+        "src": race.thumb
+    });
+
+    // title
+    let newCardTitle = $("<span>");
+    newCardTitle.addClass("card-title");
+    newCardTitle.attr("id", "card-title" + index);
+    newCardTitle.text(race.name);
+
+    // add img and title to the container
+    newCardImageContainer.append(newCardImg, newCardTitle);
+
+    // add the carousel dialog
+    let newCarouselDialog = $("<div>");
+    newCarouselDialog.addClass("carousel-dialog");
+    newCarouselDialog.attr("id", "carousel-dialog-" + index);
+    newCarouselItem.append(newCarouselDialog);
+
+    let newCarouselDialogDate = $("<p>");
+    newCarouselDialogDate.addClass("carousel-dialog-date");
+    newCarouselDialogDate.text(race.date);
+
+    let newCarouselDialogCityState = $("<p>");
+    newCarouselDialogCityState.addClass("carousel-dialog-city-state");
+    newCarouselDialogCityState.text(race.city + ", " + race.state);
+    
+    let newCarouselDialogTemp = $("<p>");
+    newCarouselDialogTemp.addClass("carousel-dialog-temp");
+    newCarouselDialogTemp.html(race.temp + "&deg;");
+
+    // append the race info to the new carousel dialog
+    newCarouselDialog.append(newCarouselDialogDate, newCarouselDialogCityState, newCarouselDialogTemp);
+}
+
 $("#user-submit-btn").click(function (event) {
 
     event.preventDefault();
@@ -135,7 +203,7 @@ $("#user-submit-btn").click(function (event) {
 
         newUser.username = $("#user-name").val().trim();
         $("#user-name").val("");
-        $("#login-modal").modal("close");
+        $("#login-dialog").modal("close");
 
         $.post("api/login", newUser, function (data) {
 
@@ -175,12 +243,12 @@ $("#CA").click(function () {
     $("#location-btn").html(" &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CA &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ");
 });
 
-$(".carousel-item").on("mouseenter", function() {
+$(document).on("mouseenter", ".carousel-item", function() {
 
-    $(this).find(".card-modal").show();
+    $(this).find(".carousel-dialog").show();
 });
 
-$(".carousel-item").on("mouseleave", function() {
+$(document).on("mouseleave", ".carousel-item", function() {
 
-    $(this).find(".card-modal").hide();
+    $(this).find(".carousel-dialog").hide();
 })

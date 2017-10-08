@@ -142,30 +142,9 @@ border-bottom: 1px solid #000;
 box-shadow: 0 1px 0 0 #000;
 }
 
-#results-header {
-  margin-top: 20px;
-}
-
-#dropdown-location {
-  position: absolute;
-  top: 100px;
-}
-
 #marathon,
 #CA {
   color: #1e88e5;
-}
-
-#location-btn,
-#distance-btn {
-
-  padding-right: 30px;
-
-}
-
-#location-btn.focus,
-#distance-btn.focus {
-  padding-right: 80px;
 }
 
 #running-man {
@@ -173,28 +152,7 @@ box-shadow: 0 1px 0 0 #000;
   height: 250px;
 }
 
-/* .results-card {
-  width: 250px;
-  height: 250px;
-} */
-
-.back {
-  padding: 30px;
-  color: black;
-  border: 1px solid black;
-}
-
-/* .results-img {
-  max-width: 250px;
-  max-height:250px;
-} */
-
-/* #races-container {
-  margin: 0 auto;
-  width: 250px;
-} */
-
-.card-modal {
+.carousel-dialog {
 	position: relative;
 	top: -245px;
 	display: none;
@@ -206,18 +164,17 @@ box-shadow: 0 1px 0 0 #000;
 	border-radius: 4px;
 }
 
-.carousel-modal-date {
+.carousel-dialog-date {
   margin-top: 0px;
 	margin-bottom: 0px;
 	padding-top: 4px;
 }
-.carousel-modal-city-state {
+.carousel-dialog-city-state {
   margin-top: 0px;
 	margin-bottom: 0px;
-	/* padding-top: 4px; */
 }
 
-.carousel-modal-temp {
+.carousel-dialog-temp {
 	margin-top: 0px;
 	padding-bottom: 4px;
 }
