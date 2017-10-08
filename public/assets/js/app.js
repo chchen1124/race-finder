@@ -1,8 +1,6 @@
 const startDate = "10-01-2017";
 const endDate = "9-30-2018";
-
 let dateSlider = document.getElementById("slider-date");
-
 let loggedIn = false;
 let user = {};
 
@@ -119,8 +117,6 @@ $(document).ready(function () {
 // receives an array of races
 function loadCarousel(races) {
 
-
-//    <div id="carousel" class="carousel">
     let carousel = $("<div>");
     carousel.addClass("carousel");
     carousel.attr("id", "carousel");
@@ -203,7 +199,7 @@ $("#user-submit-btn").click(function (event) {
 
         newUser.username = $("#user-name").val().trim();
         $("#user-name").val("");
-        $("#login-dialog").modal("close");
+        $("#login-modal").modal("close");
 
         $.post("api/login", newUser, function (data) {
 
