@@ -4,7 +4,7 @@ const endDate = "9-30-2018";
 let dateSlider = document.getElementById("slider-date");
 
 let loggedIn = false;
-let user = "";
+let user = {};
 
 $(document).ready(function () {
 
@@ -63,16 +63,11 @@ $(document).ready(function () {
             raceQuery.id = user.id;
             raceQuery.username = user.username;
 
+            console.log(raceQuery);
+
             setTimeout(function () {
 
                 $.post("/", raceQuery, function (data) {
-
-                    console.log(data);
-
-                    // sort incoming races by temp
-                    data.sort(function(a, b) { return a.temp - b.temp });
-
-                    console.log(data);
 
                     $("#results-header").text("Your Races (" + data.length + ")");
                     $("#races-container").empty();
@@ -93,7 +88,7 @@ $(document).ready(function () {
                         $("#running-man").hide();
                         $(".carousel").carousel("set", 0);
                         $("#carousel").show();
-                    }        
+                    }
                 }).fail(function () {
 
                     $("#races-container").html("There are no races for your search");
@@ -139,6 +134,7 @@ $(document).ready(function () {
             loggedIn = false;
             $("#user").empty();
             $("#login").text("Login");
+            user = {};
         }
     });
 });
@@ -184,22 +180,13 @@ function formatDate(date) {
 // click listener for Marathon drop-down button
 // changes text on button to "Marathon"
 $("#marathon").click(function () {
-
     $("#distance-btn").html(" &nbsp;&nbsp; Marathon &nbsp;&nbsp; ");
 });
 
 // click listener for CA drop-down option
 // changes text on button to "CA"
 $("#CA").click(function () {
-
     $("#location-btn").html(" &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CA &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ");
-});
-
-$.initialize(".results-card", function () {
-    $(".results-card").flip({
-        axis: 'y',
-        trigger: 'hover'
-    });
 });
 
 $(".carousel-item").on("mouseenter", function() {
