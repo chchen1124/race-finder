@@ -33,8 +33,14 @@ module.exports = function(app) {
 
 	// Query database to return a race json
 	app.post("/", function(req, res) {
+
+		console.log(req.body.id);
 		
-		addSearchToDB(req.body);
+		// if user is logged in, add search to database
+		if(req.body.id) {
+
+			addSearchToDB(req.body);			
+		}
 
 		// get dates from request body (must be converted to
 		// date objects to work with the Race model)
@@ -72,8 +78,10 @@ module.exports = function(app) {
 
 			buildArrayOfRaces(data, function() {
 
-				// send response with race data
-				res.json(racesToReturn);
+				doOurAglorithmMagic(function() {
+					// send response with race data when done
+					res.json(racesToReturn);
+				});
 			});
 		}).catch(console.log);
 	});
@@ -99,7 +107,7 @@ module.exports = function(app) {
 					username: req.body.username,
 					password: "1234"
 				}).then(function(data) {
-					res.json(data.dataValues);
+					res.json(data);
 				});
 			}
 		});
@@ -122,11 +130,12 @@ function addSearchToDB(search, res, errorHandler) {
 // buildArrayOfRaces takes in the search results array and a callback
 // to execute when recursive weather calls are complete
 function buildArrayOfRaces(data, callback) {
+
 	const thumbnailPath = "assets/images/thumbs/";
 	const defaultThumbFile = "";
 	let thumbFile;
 				
-	if(index < data.length && index < 5) {
+	if(index < data.length) {
 		
 		// wrap db date with moment object
 		let mDate = Moment(data[index].race_date, "YYYY-MM-DD");
@@ -200,4 +209,17 @@ function updateDBWithRaceTemps(race, callback) {
 		name: race.name
 		}
 	}).then(callback());
+}
+
+function doOurAglorithmMagic(callback) {
+
+	// sort races by temp 
+	racesToReturn.sort(function(a, b){
+		return Math.abs(43.2 - parseFloat(a.temp)) - Math.abs(43.2 - parseFloat(b.temp));
+	});
+
+	// slice down to 5 races to return
+	racesToReturn = racesToReturn.slice(0, 5);
+
+	callback();
 }
