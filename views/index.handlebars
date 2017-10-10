@@ -5,12 +5,14 @@
         </div>
     </div>
 </div>
+
 <h1 id="race-header">Race Finder</h1>
 
 <div class="container" id="jumbotron">
     <img id="running-man" src="assets/images/running.gif">
     <div id="carousel" class="carousel">
 
+        {{!-- preloaded carousel items --}}
         <a id="carousel-item-0" class="carousel-item" href="http://www.bsim.org/site3.aspx" target="_blank">
             <div class="card">
                 <div class="card-image">
@@ -18,12 +20,14 @@
                     <span id="card-title-0" class="card-title">Big Sur</span>
                 </div>
             </div>
-            <div id="carousel-modal-0" class="card-modal">
-                <p id="carousel-modal-date-0" class="carousel-modal-date">4/29/2018</p>
-                <p id="carousel-modal-city-state-0" class="carousel-modal-city-state">Carmel, CA</p>
-                <p id="carousel-modal-temp-0" class="carousel-modal-temp">70.0&deg;</p>
+
+            <div id="carousel-dialog-0" class="carousel-dialog">
+                <p class="carousel-dialog-date">4/29/2018</p>
+                <p class="carousel-dialog-city-state">Carmel, CA</p>
+                <p class="carousel-dialog-temp">70.0&deg;</p>
             </div>
-        </a>  
+        </a>
+
         <a id="carousel-item-1" class="carousel-item" href="http://www.thesfmarathon.com/" target="_blank">
             <div class="card">
                 <div class="card-image">
@@ -31,12 +35,13 @@
                     <span id="card-title-1" class="card-title">San Francisco</span>
                 </div>
             </div>
-            <div id="carousel-modal-1" class="card-modal">
-                <p id="carousel-modal-date-1" class="carousel-modal-date">7/22/2018</p>
-                <p id="carousel-modal-city-state-1" class="carousel-modal-city-state">San Francisco, CA</p>
-                <p id="carousel-modal-temp-1" class="carousel-modal-temp">61.5&deg;</p>
+            <div id="carousel-dialog-1" class="carousel-dialog">
+                <p id="carousel-dialog-date-1" class="carousel-dialog-date">7/22/2018</p>
+                <p id="carousel-dialog-city-state-1" class="carousel-dialog-city-state">San Francisco, CA</p>
+                <p id="carousel-dialog-temp-1" class="carousel-dialog-temp">61.5&deg;</p>
             </div>
         </a>
+
         <a id="carousel-item-2" class="carousel-item" href="http://www.baa.org/races/boston-marathon.aspx" target="_blank">
             <div class="card">
                 <div class="card-image">
@@ -44,12 +49,13 @@
                     <span id="card-title-2" class="card-title">Boston</span>
                 </div>
             </div>
-            <div id="carousel-modal-2" class="card-modal">
-                <p id="carousel-modal-date-2" class="carousel-modal-date">4/16/2018</p>
-                <p id="carousel-modal-city-state-2" class="carousel-modal-city-state">Boston, MA</p>
-                <p id="carousel-modal-temp-2" class="carousel-modal-temp">48.0&deg;</p>
+            <div id="carousel-dialog-2" class="carousel-dialog">
+                <p id="carousel-dialog-date-2" class="carousel-dialog-date">4/16/2018</p>
+                <p id="carousel-dialog-city-state-2" class="carousel-dialog-city-state">Boston, MA</p>
+                <p id="carousel-dialog-temp-2" class="carousel-dialog-temp">48.0&deg;</p>
             </div>
         </a>
+
         <a id="carousel-item-3" class="carousel-item" href="http://www.tcsnycmarathon.org/" target="_blank">
             <div class="card">
                 <div class="card-image">
@@ -57,12 +63,13 @@
                     <span id="card-title-3" class="card-title">New York City</span>
                 </div>
             </div>
-            <div id="carousel-modal-3" class="card-modal">
-                <p id="carousel-modal-date-3" class="carousel-modal-date">11/5/2018</p>
-                <p id="carousel-modal-city-state-3" class="carousel-modal-city-state">New York, NY</p>
-                <p id="carousel-modal-temp-3" class="carousel-modal-temp">48.5&deg;</p>
+            <div id="carousel-dialog-3" class="carousel-dialog">
+                <p id="carousel-dialog-date-3" class="carousel-dialog-date">11/5/2018</p>
+                <p id="carousel-dialog-city-state-3" class="carousel-dialog-city-state">New York, NY</p>
+                <p id="carousel-dialog-temp-3" class="carousel-dialog-temp">48.5&deg;</p>
             </div>
         </a>
+
         <a id="carousel-item-4" class="carousel-item" href="https://www.chicagomarathon.com/" target="_blank">
             <div class="card">
                 <div class="card-image">
@@ -70,12 +77,13 @@
                     <span id="card-title-4" class="card-title">Chicago</span>
                 </div>
             </div>
-            <div id="carousel-modal-4" class="card-modal">
-                <p id="carousel-modal-date-1" class="carousel-modal-date">10/8/2018</p>
-                <p id="carousel-modal-city-state-4" class="carousel-modal-city-state">Chicago, IL</p>
-                <p id="carousel-modal-temp-4" class="carousel-modal-temp">51.0&deg;</p>
+            <div id="carousel-dialog-4" class="carousel-dialog">
+                <p id="carousel-dialog-date-1" class="carousel-dialog-date">10/8/2018</p>
+                <p id="carousel-dialog-city-state-4" class="carousel-dialog-city-state">Chicago, IL</p>
+                <p id="carousel-dialog-temp-4" class="carousel-dialog-temp">51.0&deg;</p>
             </div>
-        </a>        
+        </a>
+
     </div>
 </div>
 
@@ -115,65 +123,6 @@
     </div>
 </div>
 <br>
-
-<!-- Results Modal -->
-<div id="results-modal" class="modal">
-    <div id="races-container" class="modal-content">
-         <div id="carousel" class="carousel">
-                <a class="carousel-item1" href="http://www.bsim.org/site3.aspx" target="_blank">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="assets/images/big-sur.jpg">
-                            <span class="card-title">Big Sur</span>
-                        </div>
-                    </div>
-                </a>
-                <a class="carousel-item2" href="http://www.thesfmarathon.com/" target="_blank">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="assets/images/san-francisco.jpg">
-                            <span class="card-title">San Francisco</span>
-                        </div>
-                    </div>
-                </a>
-                <a class="carousel-item3" href="http://www.baa.org/races/boston-marathon.aspx" target="_blank">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="assets/images/boston.jpg">
-                            <span class="card-title">Boston</span>
-                        </div>
-                    </div>
-                </a>
-                <a class="carousel-item4" href="http://www.tcsnycmarathon.org/" target="_blank">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="assets/images/new-york.jpg">
-                            <span class="card-title">New York City</span>
-                        </div>
-                    </div>
-                </a>
-                <a class="carousel-item5" href="https://www.chicagomarathon.com/" target="_blank">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src="assets/images/chicago.jpg">
-                            <span class="card-title">Chicago</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        {{!-- <h3 id="match-header">Your Races</h3>
-        <p id="match-name"></p>
-        <p><span id="match-city"></span>, <span id="match-state"></p>
-        <p id="match-date"></p>
-        <p><span id="match-temp"></span>&deg;</p> --}}
-    </div>
-    <div class="card-action">
-        <a href="" id="match-url" target="_blank"></a>
-    </div>
-    <div class="modal-footer">
-        <a class="modal-action modal-close waves-effect waves-blue darken-3 btn-flat">OK</a>
-    </div>
-</div>
 
 <!-- login modal -->
 <div id="login-modal" class="modal">
